@@ -49,6 +49,34 @@ class LoginFormController: UIViewController {
     }
     
     
-    //TODO: Сделать кнопку Enable/Disable если поля непустые.
+    @IBAction func TextField_EditingChanged(_ sender: UITextField) {
+        
+        if loginTextField.text != "" && passwordTextField.text != "" {
+            loginButton.isEnabled = true
+            loginButton.alpha = 1.0
+
+        } else {
+            loginButton.isEnabled = false
+            loginButton.alpha = 0.6
+        }
+        
+    }
+    
     
 }
+
+/*
+extension UIButton {
+    open override var isEnabled: Bool {
+        didSet {
+            DispatchQueue.main.async {
+                if self.isEnabled {
+                    self.alpha = 1.0
+                } else {
+                    self.alpha = 0.65
+                }
+            }
+        }
+    }
+}
+*/
