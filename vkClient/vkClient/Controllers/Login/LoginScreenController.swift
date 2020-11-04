@@ -7,13 +7,14 @@
 
 import UIKit
 
-class LoginFormController: UIViewController {
+class LoginScreenController: UIViewController {
     
     // MARK: - IBOutlets
 
     @IBOutlet var loginTextField: UITextField!
     @IBOutlet var passwordTextField: UITextField!
     @IBOutlet var loginButton: UIButton!
+    
 
     // MARK: - Lifecycle
 
@@ -24,6 +25,7 @@ class LoginFormController: UIViewController {
         // TODO: Разобраться и сделать логику с появлением и скрытием клавиатуры.
     }
 
+    
     // MARK: - Private Methods
 
     private func showMessage(message: String) {
@@ -32,6 +34,9 @@ class LoginFormController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
 
+    
+    // MARK: - Public Methods
+    
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         let login = loginTextField.text!
         let password = passwordTextField.text!

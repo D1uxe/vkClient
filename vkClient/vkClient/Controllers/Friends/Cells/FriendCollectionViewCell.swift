@@ -9,4 +9,7 @@ import UIKit
 
 class FriendCollectionViewCell: UICollectionViewCell {
     
+    // MARK: - IBOutlets
+    
+    @IBOutlet var friendPhotoImageView: UIImageView!
 }

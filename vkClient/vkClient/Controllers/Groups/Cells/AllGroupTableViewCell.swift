@@ -1,18 +1,18 @@
 //
-//  FriendTableViewCell.swift
+//  AllGroupTableViewCell.swift
 //  vkClient
 //
-//  Created by MacBook Pro on 01.11.2020.
+//  Created by MacBook Pro on 03.11.2020.
 //
 
 import UIKit
 
-class FriendTableViewCell: UITableViewCell {
+class AllGroupTableViewCell: UITableViewCell {
     
     // MARK: - IBOutlets
     
-    @IBOutlet var friendAvatarImageView: UIImageView!
-    @IBOutlet var friendNameLabel: UILabel!
+    @IBOutlet var avatarGroupImageView: UIImageView!
+    @IBOutlet var nameGroupLabel: UILabel!
 
     
     // MARK: - Public Methods
