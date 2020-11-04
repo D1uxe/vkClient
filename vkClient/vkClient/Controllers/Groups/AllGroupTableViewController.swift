@@ -14,6 +14,9 @@ class AllGroupTableViewController: UITableViewController {
     var groups: Groups = Groups()
     
     
+    
+    // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
