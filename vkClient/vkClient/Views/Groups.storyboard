@@ -16,21 +16,42 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MyGroupTableCell" rowHeight="85" id="smz-Ye-oj3" customClass="MyGroupTableViewCell" customModule="vkClient" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MyGroupTableCell" rowHeight="85" id="jIi-Qf-AGA" customClass="MyGroupTableViewCell" customModule="vkClient" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="85"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="smz-Ye-oj3" id="0fd-SQ-xto">
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jIi-Qf-AGA" id="aUv-Oq-fHl">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="85"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="f6g-C5-7IP">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lpf-Fk-ynG" customClass="ShadowView" customModule="vkClient" customModuleProvider="target">
+                                            <rect key="frame" x="20" y="7" width="70" height="71"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                    <real key="value" value="35"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                                    <real key="value" value="8"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                                                    <size key="value" width="0.0" height="0.0"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                                    <real key="value" value="1"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                                    <color key="value" red="0.87529613620000002" green="0.74781289669999995" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </view>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="CBs-vS-CM2" userLabel="avatarGroupImageView" customClass="AvtarView" customModule="vkClient" customModuleProvider="target">
                                             <rect key="frame" x="20" y="7" width="70" height="71"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="70" id="8yf-oq-N7A"/>
-                                                <constraint firstAttribute="width" constant="70" id="Yn4-6I-UkI"/>
+                                                <constraint firstAttribute="width" secondItem="CBs-vS-CM2" secondAttribute="height" multiplier="1:1" id="Nno-W4-6CV"/>
+                                                <constraint firstAttribute="width" constant="70" id="WZg-sx-Atm"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Phm-oO-iQg">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KtA-NI-kVM" userLabel="nameGroupLabel">
                                             <rect key="frame" x="110" y="31" width="284" height="23"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                             <nil key="textColor"/>
@@ -38,18 +59,22 @@
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="Phm-oO-iQg" firstAttribute="leading" secondItem="f6g-C5-7IP" secondAttribute="trailing" constant="20" id="0YW-Ay-KbM"/>
-                                        <constraint firstItem="f6g-C5-7IP" firstAttribute="leading" secondItem="0fd-SQ-xto" secondAttribute="leading" constant="20" symbolic="YES" id="2k7-B2-2jZ"/>
-                                        <constraint firstItem="f6g-C5-7IP" firstAttribute="centerY" secondItem="0fd-SQ-xto" secondAttribute="centerY" id="7wU-JX-j7R"/>
-                                        <constraint firstAttribute="trailing" secondItem="Phm-oO-iQg" secondAttribute="trailing" constant="20" symbolic="YES" id="Boy-oi-QI2"/>
-                                        <constraint firstItem="f6g-C5-7IP" firstAttribute="top" secondItem="0fd-SQ-xto" secondAttribute="top" constant="7" id="DTe-LW-IHq"/>
-                                        <constraint firstItem="Phm-oO-iQg" firstAttribute="centerY" secondItem="0fd-SQ-xto" secondAttribute="centerY" id="iha-ko-ueG"/>
-                                        <constraint firstItem="Phm-oO-iQg" firstAttribute="top" secondItem="0fd-SQ-xto" secondAttribute="topMargin" constant="20" id="p18-NE-vu3"/>
+                                        <constraint firstItem="CBs-vS-CM2" firstAttribute="leading" secondItem="aUv-Oq-fHl" secondAttribute="leading" constant="20" symbolic="YES" id="4Yw-3g-0bg"/>
+                                        <constraint firstItem="lpf-Fk-ynG" firstAttribute="width" secondItem="CBs-vS-CM2" secondAttribute="width" id="5iF-ck-Lpl"/>
+                                        <constraint firstItem="CBs-vS-CM2" firstAttribute="top" secondItem="aUv-Oq-fHl" secondAttribute="top" constant="7" id="5xN-Qf-c9C"/>
+                                        <constraint firstItem="CBs-vS-CM2" firstAttribute="centerY" secondItem="aUv-Oq-fHl" secondAttribute="centerY" id="9j9-oM-Wyy"/>
+                                        <constraint firstItem="KtA-NI-kVM" firstAttribute="top" secondItem="aUv-Oq-fHl" secondAttribute="topMargin" constant="20" id="LJP-Vp-GRl"/>
+                                        <constraint firstItem="lpf-Fk-ynG" firstAttribute="centerY" secondItem="CBs-vS-CM2" secondAttribute="centerY" id="UKS-wf-4Tg"/>
+                                        <constraint firstItem="lpf-Fk-ynG" firstAttribute="centerX" secondItem="CBs-vS-CM2" secondAttribute="centerX" id="cEj-jv-TTN"/>
+                                        <constraint firstItem="KtA-NI-kVM" firstAttribute="centerY" secondItem="aUv-Oq-fHl" secondAttribute="centerY" id="doO-4Z-KzH"/>
+                                        <constraint firstItem="KtA-NI-kVM" firstAttribute="leading" secondItem="CBs-vS-CM2" secondAttribute="trailing" constant="20" id="eFB-Jb-Gbv"/>
+                                        <constraint firstItem="lpf-Fk-ynG" firstAttribute="height" secondItem="CBs-vS-CM2" secondAttribute="height" id="jES-RT-Rkc"/>
+                                        <constraint firstAttribute="trailing" secondItem="KtA-NI-kVM" secondAttribute="trailing" constant="20" symbolic="YES" id="oo9-3Y-57F"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="avatarGroupImageView" destination="f6g-C5-7IP" id="4Dc-9d-xlV"/>
-                                    <outlet property="nameGroupLabel" destination="Phm-oO-iQg" id="4HA-y0-AIf"/>
+                                    <outlet property="avatarGroupImageView" destination="CBs-vS-CM2" id="eIi-k9-LsN"/>
+                                    <outlet property="nameGroupLabel" destination="KtA-NI-kVM" id="FVM-3r-xnx"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -87,41 +112,66 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AvailableGroupTableCell" rowHeight="85" id="HFr-K7-MIX" customClass="AllGroupTableViewCell" customModule="vkClient" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AvailableGroupTableCell" rowHeight="85" id="ud7-u5-Zq6" customClass="AllGroupTableViewCell" customModule="vkClient" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="85"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="HFr-K7-MIX" id="06S-0Y-Hdr">
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ud7-u5-Zq6" id="8F3-48-BUq">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="85"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rGA-zh-oGX">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wgz-iY-Oe3" customClass="ShadowView" customModule="vkClient" customModuleProvider="target">
+                                            <rect key="frame" x="20" y="7" width="70" height="71"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                    <real key="value" value="35"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                                    <real key="value" value="8"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                                                    <size key="value" width="0.0" height="0.0"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                                    <real key="value" value="1"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                                    <color key="value" red="0.87529613620000002" green="0.74781289669999995" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </view>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="foX-dr-Pgh" customClass="AvtarView" customModule="vkClient" customModuleProvider="target">
                                             <rect key="frame" x="20" y="7" width="70" height="71"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="70" id="K7U-FF-aK4"/>
-                                                <constraint firstAttribute="width" constant="70" id="i3n-qn-rab"/>
+                                                <constraint firstAttribute="width" constant="70" id="WxR-ZU-6Ix"/>
+                                                <constraint firstAttribute="width" secondItem="foX-dr-Pgh" secondAttribute="height" multiplier="1:1" id="Z3v-KF-Ehv"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5TL-ja-pCN">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Td2-Vl-p1E">
                                             <rect key="frame" x="110" y="31" width="284" height="23"/>
-                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="rGA-zh-oGX" firstAttribute="leading" secondItem="06S-0Y-Hdr" secondAttribute="leading" constant="20" symbolic="YES" id="1Vy-gd-vBM"/>
-                                        <constraint firstItem="5TL-ja-pCN" firstAttribute="centerY" secondItem="06S-0Y-Hdr" secondAttribute="centerY" id="5sg-Cw-lgg"/>
-                                        <constraint firstItem="rGA-zh-oGX" firstAttribute="top" secondItem="06S-0Y-Hdr" secondAttribute="top" constant="7" id="PfZ-BW-6aQ"/>
-                                        <constraint firstItem="rGA-zh-oGX" firstAttribute="centerY" secondItem="06S-0Y-Hdr" secondAttribute="centerY" id="gzM-yZ-cyL"/>
-                                        <constraint firstItem="5TL-ja-pCN" firstAttribute="leading" secondItem="rGA-zh-oGX" secondAttribute="trailing" constant="20" id="j3i-0F-O9x"/>
-                                        <constraint firstItem="5TL-ja-pCN" firstAttribute="top" secondItem="06S-0Y-Hdr" secondAttribute="topMargin" constant="20" id="mgy-c8-Y3I"/>
-                                        <constraint firstAttribute="trailing" secondItem="5TL-ja-pCN" secondAttribute="trailing" constant="20" symbolic="YES" id="teK-0T-HrQ"/>
+                                        <constraint firstAttribute="trailing" secondItem="Td2-Vl-p1E" secondAttribute="trailing" constant="20" symbolic="YES" id="NMC-Ax-CCl"/>
+                                        <constraint firstItem="Td2-Vl-p1E" firstAttribute="leading" secondItem="foX-dr-Pgh" secondAttribute="trailing" constant="20" id="TKy-Ma-p0g"/>
+                                        <constraint firstItem="foX-dr-Pgh" firstAttribute="leading" secondItem="8F3-48-BUq" secondAttribute="leading" constant="20" symbolic="YES" id="Upg-ry-jpf"/>
+                                        <constraint firstItem="foX-dr-Pgh" firstAttribute="top" secondItem="8F3-48-BUq" secondAttribute="top" constant="7" id="VXt-p8-pQm"/>
+                                        <constraint firstItem="wgz-iY-Oe3" firstAttribute="centerX" secondItem="foX-dr-Pgh" secondAttribute="centerX" id="h96-5Q-bS2"/>
+                                        <constraint firstItem="wgz-iY-Oe3" firstAttribute="centerY" secondItem="foX-dr-Pgh" secondAttribute="centerY" id="hq8-nJ-zOV"/>
+                                        <constraint firstItem="Td2-Vl-p1E" firstAttribute="centerY" secondItem="8F3-48-BUq" secondAttribute="centerY" id="jJ5-P8-Uef"/>
+                                        <constraint firstItem="wgz-iY-Oe3" firstAttribute="width" secondItem="foX-dr-Pgh" secondAttribute="width" id="jKn-XD-wfM"/>
+                                        <constraint firstItem="foX-dr-Pgh" firstAttribute="centerY" secondItem="8F3-48-BUq" secondAttribute="centerY" id="ku6-zF-wNQ"/>
+                                        <constraint firstItem="Td2-Vl-p1E" firstAttribute="top" secondItem="8F3-48-BUq" secondAttribute="topMargin" constant="20" id="n6R-yM-Ljx"/>
+                                        <constraint firstItem="wgz-iY-Oe3" firstAttribute="height" secondItem="foX-dr-Pgh" secondAttribute="height" id="u7N-HB-Jc6"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="avatarGroupImageView" destination="rGA-zh-oGX" id="m5g-Hg-nDD"/>
-                                    <outlet property="nameGroupLabel" destination="5TL-ja-pCN" id="epn-uR-yUI"/>
-                                    <segue destination="5UC-se-tBL" kind="unwind" identifier="addGroup" unwindAction="addGroupToMyGroupsWithUnwindSegue:" id="Hd3-dc-2WZ"/>
+                                    <outlet property="avatarGroupImageView" destination="foX-dr-Pgh" id="o8P-nF-8bA"/>
+                                    <outlet property="nameGroupLabel" destination="Td2-Vl-p1E" id="nh5-AG-SCn"/>
+                                    <segue destination="5UC-se-tBL" kind="unwind" identifier="addGroup" unwindAction="addGroupToMyGroupsWithUnwindSegue:" id="8hP-Xm-llO"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

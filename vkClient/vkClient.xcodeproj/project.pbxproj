@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		523A67C3254F05AD0049D433 /* Friends.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 523A67C2254F05AD0049D433 /* Friends.storyboard */; };
 		523A67C6254F05BD0049D433 /* Groups.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 523A67C5254F05BD0049D433 /* Groups.storyboard */; };
+		5247374D25585FC90036A773 /* AvtarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5247374C25585FC90036A773 /* AvtarView.swift */; };
+		5247375025586A5A0036A773 /* ShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5247374F25586A5A0036A773 /* ShadowView.swift */; };
+		52648BCC2555952B00426E81 /* LikeControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52648BCB2555952B00426E81 /* LikeControl.swift */; };
 		5278EEC4254F54CD004F1EB4 /* FriendTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5278EEC3254F54CD004F1EB4 /* FriendTableViewController.swift */; };
 		5278EEC7254F54E9004F1EB4 /* FriendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5278EEC6254F54E9004F1EB4 /* FriendTableViewCell.swift */; };
 		5278EECA254F5530004F1EB4 /* FriendCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5278EEC9254F5530004F1EB4 /* FriendCollectionViewController.swift */; };
@@ -29,6 +32,9 @@
 /* Begin PBXFileReference section */
 		523A67C2254F05AD0049D433 /* Friends.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Friends.storyboard; sourceTree = "<group>"; };
 		523A67C5254F05BD0049D433 /* Groups.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Groups.storyboard; sourceTree = "<group>"; };
+		5247374C25585FC90036A773 /* AvtarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvtarView.swift; sourceTree = "<group>"; };
+		5247374F25586A5A0036A773 /* ShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowView.swift; sourceTree = "<group>"; };
+		52648BCB2555952B00426E81 /* LikeControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeControl.swift; sourceTree = "<group>"; };
 		5278EEC3254F54CD004F1EB4 /* FriendTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendTableViewController.swift; sourceTree = "<group>"; };
 		5278EEC6254F54E9004F1EB4 /* FriendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendTableViewCell.swift; sourceTree = "<group>"; };
 		5278EEC9254F5530004F1EB4 /* FriendCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCollectionViewController.swift; sourceTree = "<group>"; };
@@ -62,6 +68,7 @@
 		523A67BD254F04530049D433 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				52648BCA2555950900426E81 /* Controls */,
 				52A61B442545BC5900DAEE04 /* LaunchScreen.storyboard */,
 				52A61B3F2545BC5800DAEE04 /* LoginScreen.storyboard */,
 				523A67C2254F05AD0049D433 /* Friends.storyboard */,
@@ -95,6 +102,16 @@
 				52A61B3D2545BC5800DAEE04 /* LoginScreenController.swift */,
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		52648BCA2555950900426E81 /* Controls */ = {
+			isa = PBXGroup;
+			children = (
+				52648BCB2555952B00426E81 /* LikeControl.swift */,
+				5247374C25585FC90036A773 /* AvtarView.swift */,
+				5247374F25586A5A0036A773 /* ShadowView.swift */,
+			);
+			path = Controls;
 			sourceTree = "<group>";
 		};
 		5278EEBD254F47DE004F1EB4 /* Friends */ = {
@@ -245,8 +262,11 @@
 				52A61B3A2545BC5800DAEE04 /* AppDelegate.swift in Sources */,
 				52A395712551CB9F00042263 /* AllGroupTableViewCell.swift in Sources */,
 				5278EECA254F5530004F1EB4 /* FriendCollectionViewController.swift in Sources */,
+				52648BCC2555952B00426E81 /* LikeControl.swift in Sources */,
 				5278EEC4254F54CD004F1EB4 /* FriendTableViewController.swift in Sources */,
+				5247375025586A5A0036A773 /* ShadowView.swift in Sources */,
 				5278EEC7254F54E9004F1EB4 /* FriendTableViewCell.swift in Sources */,
+				5247374D25585FC90036A773 /* AvtarView.swift in Sources */,
 				52A3956B2551CB5A00042263 /* AllGroupTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

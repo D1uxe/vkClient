@@ -9,53 +9,92 @@ import UIKit
 
 class FriendTableViewController: UITableViewController {
     
-    // MARK: - Public Properties
-    
-    var friends: Friends = Friends()
+    // MARK: - Private Properties
 
+    private var friends: Friends = Friends()
+    private var friendDictionary = [String: [Friend]]()
+    private var sectionTitles: [String] {
+        friendDictionary.keys.sorted()
+    }
     
+
     // MARK: - Lifecycle
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        // проинициализируем словарь где ключ - первая буква слова
+        friendDictionary = Dictionary(grouping: friends.friendsList, by: { String($0.name.prefix(1)) })
     }
+    
 
-    
     // MARK: - Public Methods
-    
-    //передадим данные в FriendCollectionVewController
+
+    // передадим данные в FriendCollectionVewController
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
         guard segue.identifier == "showFriendPhoto" else { return }
         guard let destinationController = segue.destination as? FriendCollectionViewController else { return }
         if let indexPath = tableView.indexPathForSelectedRow {
-            destinationController.friendPhoto = friends.friendsList[indexPath.row].photo
+            if let friend = friendDictionary[sectionTitles[indexPath.section]] {
+                destinationController.friendPhoto = friend[indexPath.row].photo
+            }
         }
     }
 
+    
+    
+    
     
     
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return sectionTitles.count
     }
 
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return friends.friendsList.count
+        // return friendDictionary[sectionTitles[section]]?.count ?? 0
+
+        let letter = sectionTitles[section]
+        if let friend = friendDictionary[letter] {
+            return friend.count
+        }
+
+        return 0
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "FriendTableCell", for: indexPath) as! FriendTableViewCell
 
-        let friend = friends.friendsList[indexPath.row]
-        cell.friendAvatarImageView.image = UIImage(named: friend.avatar)
-        cell.friendNameLabel.text = friend.name
+        let letter = sectionTitles[indexPath.section]
+        if let friend = friendDictionary[letter] {
+            cell.friendAvatarImageView.image = UIImage(named: friend[indexPath.row].avatar)
+            cell.friendNameLabel.text = friend[indexPath.row].name
+        }
 
         return cell
     }
 
+    //To display a header title in each section
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
+        return sectionTitles[section]
+    }
+
+    
+    //To add an indexed table view
+    override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+        
+        return sectionTitles
+    }
+
+    
+    
+    
+    
     /*
      // Override to support conditional editing of the table view.
      override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -90,15 +129,4 @@ class FriendTableViewController: UITableViewController {
          return true
      }
      */
-
-    /*
-     // MARK: - Navigation
-
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-         // Get the new view controller using segue.destination.
-         // Pass the selected object to the new view controller.
-     }
-     */
-    
 }
