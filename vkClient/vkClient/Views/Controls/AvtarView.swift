@@ -9,6 +9,19 @@ import UIKit
 
 class AvtarView: UIImageView {
     
+
+    
+    // MARK: - Initializers
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
+
     // MARK: - Public Methods
 
     override func awakeFromNib() {
@@ -19,6 +32,7 @@ class AvtarView: UIImageView {
     override func layoutSubviews() {
         super.layoutSubviews()
     }
+    
 
     // MARK: - Private Methods
 
@@ -26,6 +40,5 @@ class AvtarView: UIImageView {
         layer.borderWidth = 2
         layer.borderColor = #colorLiteral(red: 0.382525444, green: 0.6620827317, blue: 0.9676174521, alpha: 1).cgColor
         layer.cornerRadius = 35
-        //layer.masksToBounds = true // свойство закоментировано, но почему-то все работает. Почему?Ћ
     }
 }

@@ -21,6 +21,13 @@ struct Friends {
         Friend(name: "Wonder Woman", avatar: "WonderWoman", photo: ["WonderWoman1", "WonderWoman2"]),
         Friend(name: "Tanos", avatar: "Tanos", photo: ["Tanos1", "Tanos2", "Tanos3"]),
         Friend(name: "Groot", avatar: "Groot", photo: ["Groot1", "Groot2","Groot3"]),
-        Friend(name: "Питер Паркер", avatar: "SpiderMan", photo: [])
+        Friend(name: "Питер Паркер", avatar: "SpiderMan", photo: []),
+        
+//        Friend(name: "Supreme", avatar: "Supreme", photo: []),
+//        Friend(name: "Salut", avatar: "Salut", photo: []),
+//        Friend(name: "Member", avatar: "Member", photo: []),
+//        Friend(name: "Memory", avatar: "Memory", photo: []),
+//        Friend(name: "Got", avatar: "Groot", photo: ["Groot1", "Groot2","Groot3"]),
+//        Friend(name: "Gosha", avatar: "Groot", photo: ["Groot1", "Groot2","Groot3"]),
     ]
 }

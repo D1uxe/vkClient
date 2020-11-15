@@ -9,6 +9,8 @@ import UIKit
 
 class FriendTableViewController: UITableViewController {
     
+    
+    
     // MARK: - Private Properties
 
     private var friends: Friends = Friends()
@@ -16,7 +18,7 @@ class FriendTableViewController: UITableViewController {
     private var sectionTitles: [String] {
         friendDictionary.keys.sorted()
     }
-    
+    private var originFriendDictionary: [String: [Friend]] = [:]
 
     // MARK: - Lifecycle
 
@@ -24,6 +26,7 @@ class FriendTableViewController: UITableViewController {
         super.viewDidLoad()
         // проинициализируем словарь где ключ - первая буква слова
         friendDictionary = Dictionary(grouping: friends.friendsList, by: { String($0.name.prefix(1)) })
+        originFriendDictionary = friendDictionary
     }
     
 
@@ -93,8 +96,6 @@ class FriendTableViewController: UITableViewController {
 
     
     
-    
-    
     /*
      // Override to support conditional editing of the table view.
      override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -129,4 +130,31 @@ class FriendTableViewController: UITableViewController {
          return true
      }
      */
+}
+
+extension FriendTableViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+       
+        friendDictionary = searchText.isEmpty ? originFriendDictionary : originFriendDictionary
+            .mapValues({ $0.lazy.filter({ $0.name
+                    .lowercased()
+                    .contains(searchText.lowercased()) }) })
+            .filter({ !$0.value.isEmpty })
+        tableView.reloadData()
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = true
+        
+    }
+    
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = false
+        searchBar.text = ""
+        searchBar.resignFirstResponder()
+        
+        
+    }
+    
 }

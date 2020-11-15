@@ -9,15 +9,15 @@ import UIKit
 
 class LikeControl: UIControl {
     
-    // MARK: - Public Properties
-
+    
     // MARK: - Private Properties
 
     private let imageView = UIImageView()
     private let counterLabel = UILabel()
 
     private var isLike: Bool = false
-    private var likeCounter: Int = 0
+    private var likeCounter: Float = 0
+    
     
 
     // MARK: - Initializers
@@ -32,22 +32,31 @@ class LikeControl: UIControl {
         setupImageView()
     }
     
+    
 
     // MARK: - Public Methods
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        imageView.frame = bounds
+        // imageView.frame = bounds
     }
+    
+    
 
     // MARK: - Private Methods
 
     private func setupImageView() {
-        
         addSubview(imageView)
 
         imageView.image = UIImage(systemName: "heart")
         imageView.tintColor = #colorLiteral(red: 0.2887516618, green: 0.5174338222, blue: 0.7922994494, alpha: 1)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([leadingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: -5),
+                                     centerYAnchor.constraint(equalTo: imageView.centerYAnchor),
+                                     bottomAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 0),
+                                     imageView.widthAnchor.constraint(equalToConstant: 25),
+        ])
 
         addTarget(self, action: #selector(tapControl), for: .touchUpInside)
 
@@ -55,14 +64,15 @@ class LikeControl: UIControl {
     }
 
     private func setupLabel() {
-        
         addSubview(counterLabel)
 
         counterLabel.textColor = #colorLiteral(red: 0.2887516618, green: 0.5174338222, blue: 0.7922994494, alpha: 1)
         counterLabel.translatesAutoresizingMaskIntoConstraints = false
 
-        NSLayoutConstraint.activate([counterLabel.trailingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: -5),
+        NSLayoutConstraint.activate([counterLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 5),
                                      counterLabel.centerYAnchor.constraint(equalTo: imageView.centerYAnchor),
+                                     counterLabel.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -10),
+                                     counterLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 40),
         ])
 
         updateCounterLabel()
@@ -70,12 +80,25 @@ class LikeControl: UIControl {
 
     private func updateCounterLabel() {
         var str: String = ""
+        // let formatter = NumberFormatter()
+        // formatter.minimumFractionDigits = 0
+        // formatter.maximumFractionDigits = 1
 
         switch likeCounter {
-        case 0 ... 999:
-            str = String(likeCounter)
-        case 1000 ..< 1_000_000:
-            str = String(likeCounter / 1000) + "k"
+        case 0:
+            str = ""
+        case 1 ... 999:
+            str = String(Int(likeCounter))
+        case 1000 ..< 1000000:
+            //  str = (formatter.string(from: NSNumber(value: likeCounter / 1000)) ?? "-") + "k"
+
+            if likeCounter.truncatingRemainder(dividingBy: 1000) < 100 {
+                str = String(format: "%0.0f", likeCounter / 1000) + "k"
+            } else {
+                str = String(format: "%0.1f", likeCounter / 1000) + "k"
+            }
+        case 1000000 ..< 1000000000:
+            str = String(likeCounter / 1000000) + "M"
         default:
             str = "-"
         }
@@ -90,7 +113,6 @@ class LikeControl: UIControl {
     }
 
     @objc private func tapControl() {
-
         isLike.toggle()
         if isLike {
             imageView.image = UIImage(systemName: "heart.fill")
