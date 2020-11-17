@@ -39,6 +39,6 @@ class AvtarView: UIImageView {
     private func setupLayout() {
         layer.borderWidth = 2
         layer.borderColor = #colorLiteral(red: 0.382525444, green: 0.6620827317, blue: 0.9676174521, alpha: 1).cgColor
-        layer.cornerRadius = 35
+        layer.cornerRadius = self.frame.size.height * 0.5
     }
 }

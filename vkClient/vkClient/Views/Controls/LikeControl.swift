@@ -16,7 +16,7 @@ class LikeControl: UIControl {
     private let counterLabel = UILabel()
 
     private var isLike: Bool = false
-    private var likeCounter: Float = 0
+    private var likeCounter: Float = 5_099_999
     
     
 
@@ -52,9 +52,9 @@ class LikeControl: UIControl {
         imageView.tintColor = #colorLiteral(red: 0.2887516618, green: 0.5174338222, blue: 0.7922994494, alpha: 1)
         imageView.translatesAutoresizingMaskIntoConstraints = false
 
-        NSLayoutConstraint.activate([leadingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: -5),
-                                     centerYAnchor.constraint(equalTo: imageView.centerYAnchor),
-                                     bottomAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 0),
+        NSLayoutConstraint.activate([self.leadingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: -5),
+                                     self.centerYAnchor.constraint(equalTo: imageView.centerYAnchor),
+                                     self.bottomAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 0),
                                      imageView.widthAnchor.constraint(equalToConstant: 25),
         ])
 
@@ -71,7 +71,7 @@ class LikeControl: UIControl {
 
         NSLayoutConstraint.activate([counterLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 5),
                                      counterLabel.centerYAnchor.constraint(equalTo: imageView.centerYAnchor),
-                                     counterLabel.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -10),
+                                     counterLabel.trailingAnchor.constraint(lessThanOrEqualTo: self.trailingAnchor, constant: -10),
                                      counterLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 40),
         ])
 
@@ -89,7 +89,7 @@ class LikeControl: UIControl {
             str = ""
         case 1 ... 999:
             str = String(Int(likeCounter))
-        case 1000 ..< 1000000:
+        case 1000 ..< 1_000_000:
             //  str = (formatter.string(from: NSNumber(value: likeCounter / 1000)) ?? "-") + "k"
 
             if likeCounter.truncatingRemainder(dividingBy: 1000) < 100 {
@@ -97,8 +97,13 @@ class LikeControl: UIControl {
             } else {
                 str = String(format: "%0.1f", likeCounter / 1000) + "k"
             }
-        case 1000000 ..< 1000000000:
-            str = String(likeCounter / 1000000) + "M"
+
+        case 1_000_000 ..< 1_000_000_000:
+            if likeCounter.truncatingRemainder(dividingBy: 1000_000) < 100_000 {
+            str = String(format: "%0.0f", likeCounter / 1_000_000) + "M"
+            } else {
+                str = String(format: "%0.1f", likeCounter / 1000_000) + "M"
+            }
         default:
             str = "-"
         }

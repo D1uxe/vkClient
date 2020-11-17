@@ -81,6 +81,18 @@ class FriendTableViewController: UITableViewController {
         return cell
     }
 
+
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let header = UILabel()
+        header.layer.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.02)
+        header.font = UIFont.boldSystemFont(ofSize: 17)
+
+        header.text = "    " + String(sectionTitles[section].uppercased())
+        return header
+    }
+    
+    
     //To display a header title in each section
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
@@ -132,6 +144,8 @@ class FriendTableViewController: UITableViewController {
      */
 }
 
+// MARK: - Search Bar Delegate
+
 extension FriendTableViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
        
@@ -150,6 +164,10 @@ extension FriendTableViewController: UISearchBarDelegate {
     
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        
+        friendDictionary = originFriendDictionary
+        tableView.reloadData()
+        
         searchBar.showsCancelButton = false
         searchBar.text = ""
         searchBar.resignFirstResponder()
