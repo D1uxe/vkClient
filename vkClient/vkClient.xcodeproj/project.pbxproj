@@ -19,6 +19,7 @@
 		527DDDA92561982B00FF87B8 /* News.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 527DDDA82561982B00FF87B8 /* News.storyboard */; };
 		527DDDAC25619CA900FF87B8 /* NewsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527DDDAB25619CA900FF87B8 /* NewsTableViewController.swift */; };
 		527DDDAF25619CC500FF87B8 /* NewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527DDDAE25619CC500FF87B8 /* NewsTableViewCell.swift */; };
+		528DC7962566892D00DF2C98 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528DC7952566892D00DF2C98 /* LoadingViewController.swift */; };
 		52A395622551C54900042263 /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A395612551C54900042263 /* Friend.swift */; };
 		52A395652551C58E00042263 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A395642551C58E00042263 /* Group.swift */; };
 		52A395682551CB4800042263 /* MyGroupTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A395672551CB4800042263 /* MyGroupTableViewController.swift */; };
@@ -46,6 +47,7 @@
 		527DDDA82561982B00FF87B8 /* News.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = News.storyboard; sourceTree = "<group>"; };
 		527DDDAB25619CA900FF87B8 /* NewsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewController.swift; sourceTree = "<group>"; };
 		527DDDAE25619CC500FF87B8 /* NewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = "<group>"; };
+		528DC7952566892D00DF2C98 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		52A395612551C54900042263 /* Friend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
 		52A395642551C58E00042263 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		52A395672551CB4800042263 /* MyGroupTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyGroupTableViewController.swift; sourceTree = "<group>"; };
@@ -91,6 +93,7 @@
 			children = (
 				5278EEBE254F47EB004F1EB4 /* Groups */,
 				5278EEBD254F47DE004F1EB4 /* Friends */,
+				528DC7982566894700DF2C98 /* Loading */,
 				523A67C0254F05400049D433 /* Login */,
 			);
 			path = Controllers;
@@ -177,6 +180,14 @@
 				527DDDAE25619CC500FF87B8 /* NewsTableViewCell.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		528DC7982566894700DF2C98 /* Loading */ = {
+			isa = PBXGroup;
+			children = (
+				528DC7952566892D00DF2C98 /* LoadingViewController.swift */,
+			);
+			path = Loading;
 			sourceTree = "<group>";
 		};
 		52A61B2D2545BC5700DAEE04 = {
@@ -301,6 +312,7 @@
 				52A395712551CB9F00042263 /* AllGroupTableViewCell.swift in Sources */,
 				5278EECA254F5530004F1EB4 /* FriendCollectionViewController.swift in Sources */,
 				52648BCC2555952B00426E81 /* LikeControl.swift in Sources */,
+				528DC7962566892D00DF2C98 /* LoadingViewController.swift in Sources */,
 				5278EEC4254F54CD004F1EB4 /* FriendTableViewController.swift in Sources */,
 				5247375025586A5A0036A773 /* ShadowView.swift in Sources */,
 				527DDDAC25619CA900FF87B8 /* NewsTableViewController.swift in Sources */,

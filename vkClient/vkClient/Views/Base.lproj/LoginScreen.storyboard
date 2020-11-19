@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="beh-VD-Rdh">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
@@ -8,10 +8,61 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Loading View Controller-->
+        <scene sceneID="dfQ-qr-vDv">
+            <objects>
+                <viewController modalPresentationStyle="fullScreen" id="beh-VD-Rdh" customClass="LoadingViewController" customModule="vkClient" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="l8w-Ov-zPx">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fJV-VS-dvi">
+                                <rect key="frame" x="194.5" y="435.5" width="25" height="25"/>
+                                <color key="backgroundColor" red="0.2887516618" green="0.5174338222" blue="0.79229944939999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="YoB-qL-gg5"/>
+                                    <constraint firstAttribute="width" constant="25" id="qso-99-7xX"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nOa-Lm-MDW">
+                                <rect key="frame" x="161.5" y="435.5" width="25" height="25"/>
+                                <color key="backgroundColor" red="0.2887516618" green="0.5174338222" blue="0.79229944939999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xn1-qZ-kXb">
+                                <rect key="frame" x="227.5" y="435.5" width="25" height="25"/>
+                                <color key="backgroundColor" red="0.2887516618" green="0.5174338222" blue="0.79229944939999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="4pi-Ya-DgB"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="nOa-Lm-MDW" firstAttribute="height" secondItem="fJV-VS-dvi" secondAttribute="height" id="37y-tJ-W64"/>
+                            <constraint firstItem="Xn1-qZ-kXb" firstAttribute="centerY" secondItem="fJV-VS-dvi" secondAttribute="centerY" id="IFV-LN-CD7"/>
+                            <constraint firstItem="Xn1-qZ-kXb" firstAttribute="width" secondItem="fJV-VS-dvi" secondAttribute="width" id="NMA-A2-7B2"/>
+                            <constraint firstItem="fJV-VS-dvi" firstAttribute="leading" secondItem="nOa-Lm-MDW" secondAttribute="trailing" constant="8" id="TFq-tZ-L1U"/>
+                            <constraint firstItem="fJV-VS-dvi" firstAttribute="centerY" secondItem="nOa-Lm-MDW" secondAttribute="centerY" id="XFj-ye-ElB"/>
+                            <constraint firstItem="fJV-VS-dvi" firstAttribute="centerY" secondItem="l8w-Ov-zPx" secondAttribute="centerY" id="aIf-dE-qLq"/>
+                            <constraint firstItem="nOa-Lm-MDW" firstAttribute="width" secondItem="fJV-VS-dvi" secondAttribute="width" id="dTN-JU-e24"/>
+                            <constraint firstItem="fJV-VS-dvi" firstAttribute="centerX" secondItem="l8w-Ov-zPx" secondAttribute="centerX" id="mI1-eE-TFz"/>
+                            <constraint firstItem="Xn1-qZ-kXb" firstAttribute="leading" secondItem="fJV-VS-dvi" secondAttribute="trailing" constant="8" id="wyx-lQ-dkx"/>
+                            <constraint firstItem="Xn1-qZ-kXb" firstAttribute="height" secondItem="fJV-VS-dvi" secondAttribute="height" id="xZo-eY-DnT"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="leftDot" destination="nOa-Lm-MDW" id="3Ya-59-Jfw"/>
+                        <outlet property="middleDot" destination="fJV-VS-dvi" id="fRN-WY-5cx"/>
+                        <outlet property="rightDot" destination="Xn1-qZ-kXb" id="cOw-dD-GgB"/>
+                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="toLoginScreenSegue" id="2Oa-Eg-HUT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="j4l-7c-fIc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1006" y="119"/>
+        </scene>
         <!--Login Screen Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="LoginScreenController" customModule="vkClient" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginView" modalPresentationStyle="fullScreen" id="BYZ-38-t0r" customClass="LoginScreenController" customModule="vkClient" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -58,7 +109,7 @@
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <segue destination="ggY-0N-UAF" kind="presentation" id="YQC-cD-czw"/>
+                                            <segue destination="ggY-0N-UAF" kind="presentation" identifier="LoginButtonSegue" id="YQC-cD-czw"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -100,7 +151,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-201.44927536231884" y="118.52678571428571"/>
+            <point key="canvasLocation" x="-199" y="119"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="r4A-7z-9IE">

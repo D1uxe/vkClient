@@ -16,7 +16,7 @@ class LikeControl: UIControl {
     private let counterLabel = UILabel()
 
     private var isLike: Bool = false
-    private var likeCounter: Float = 5_099_999
+    private var likeCounter: Float = 0 //5_099_999
     
     
 
@@ -117,12 +117,41 @@ class LikeControl: UIControl {
         counterLabel.textColor = isLike ? #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1) : #colorLiteral(red: 0.2536475658, green: 0.4901949167, blue: 0.8384085298, alpha: 1)
     }
 
+    
+    private func animateImage() {
+        
+        UIView.animate(withDuration: 0.5,
+                       delay: 0.1,
+                       usingSpringWithDamping: 0.5,
+                       initialSpringVelocity: 0.0,
+                       options: [],
+                       animations: { [unowned self] in
+                           self.imageView.transform = CGAffineTransform(scaleX: 1.07, y: 1.07)
+                       },
+                       completion: { [unowned self] _ in
+                           self.imageView.transform = .identity
+                       })
+
+        /*
+                 let animation = CASpringAnimation(keyPath: "transform.scale")
+                 animation.fromValue = 1
+                 animation.toValue = 1.1
+                 animation.stiffness = 300
+                 animation.mass = 2
+                 animation.duration = 0.5
+                 //animation.beginTime = CACurrentMediaTime() + 0.2
+                 //animation.fillMode = .forwards
+                 imageView.layer.add(animation, forKey: nil)
+             */
+    }
+    
     @objc private func tapControl() {
         isLike.toggle()
         if isLike {
             imageView.image = UIImage(systemName: "heart.fill")
             imageView.tintColor = #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)
             likeCounter += 1
+            animateImage()
             updateCounterLabel()
         } else {
             imageView.image = UIImage(systemName: "heart")

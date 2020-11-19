@@ -81,6 +81,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="friendAvatarImageView" destination="eSa-f5-8uZ" id="1XM-UZ-hMw"/>
+                                    <outlet property="friendAvatarShadowView" destination="wfN-A3-VAq" id="Uu5-Yd-Zdr"/>
                                     <outlet property="friendNameLabel" destination="hpu-hG-qDl" id="KYe-G8-abG"/>
                                     <segue destination="QIs-z2-5BD" kind="show" identifier="showFriendPhoto" id="ZD6-ye-mtl"/>
                                 </connections>
@@ -128,7 +129,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="CWW-GX-5Vs">
-                                            <rect key="frame" x="0.0" y="0.0" width="170" height="148"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="170" height="146"/>
                                         </imageView>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hpm-qW-RAH" customClass="LikeControl" customModule="vkClient" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="148" width="65" height="22"/>
@@ -141,7 +142,7 @@
                                     <constraints>
                                         <constraint firstItem="hpm-qW-RAH" firstAttribute="leading" secondItem="CIt-OW-vIp" secondAttribute="leading" id="6JO-SI-bXW"/>
                                         <constraint firstItem="CWW-GX-5Vs" firstAttribute="leading" secondItem="CIt-OW-vIp" secondAttribute="leading" id="G3b-hd-YB0"/>
-                                        <constraint firstItem="hpm-qW-RAH" firstAttribute="top" secondItem="CWW-GX-5Vs" secondAttribute="bottom" id="GF9-cz-8u4"/>
+                                        <constraint firstItem="hpm-qW-RAH" firstAttribute="top" secondItem="CWW-GX-5Vs" secondAttribute="bottom" constant="2" id="GF9-cz-8u4"/>
                                         <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="hpm-qW-RAH" secondAttribute="trailing" constant="105" id="Gcg-B4-Z0g"/>
                                         <constraint firstAttribute="bottom" secondItem="hpm-qW-RAH" secondAttribute="bottom" id="QYS-OF-E5G"/>
                                         <constraint firstItem="hpm-qW-RAH" firstAttribute="height" secondItem="CWW-GX-5Vs" secondAttribute="height" multiplier="0.15" id="Rba-l6-nlK"/>
