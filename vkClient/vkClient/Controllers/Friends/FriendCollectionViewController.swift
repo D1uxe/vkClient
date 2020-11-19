@@ -9,16 +9,40 @@ import UIKit
 
 class FriendCollectionViewController: UICollectionViewController {
     
+    //MARK: - Public Properties
+    
     var friendPhoto: [String] = []
+    
+    
+    //MARK: - Lifecycle
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        collectionFlowLayoutSettings()
 
     }
 
 
+    
+    //MARK: - Private Methods
+    
+    fileprivate func collectionFlowLayoutSettings() {
+        //настройка collection flow layout
+        let itemsPerRow: CGFloat = 2
+        let inset: UIEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+        let widthSpacing = inset.left * (itemsPerRow + 1)
+        let availableWidth = collectionView.bounds.width - widthSpacing
+        let itemSize = availableWidth / itemsPerRow
+        let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
+        layout.sectionInset = inset
+        layout.minimumLineSpacing = inset.left
+        layout.minimumInteritemSpacing = inset.left
+        layout.itemSize = CGSize(width: itemSize, height: itemSize)
+    }
+    
+    
     
     /*
      // MARK: - Navigation
