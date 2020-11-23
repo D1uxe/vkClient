@@ -65,7 +65,7 @@ class LoadingViewController: UIViewController {
                                                        })
                                 },
                                 completion: { [unowned self] _ in
-                                    if self.repeatCount != 10 {
+                                    if self.repeatCount != 0 {
                                         self.repeatCount += 1
                                         self.animateDot()
                                     } else {

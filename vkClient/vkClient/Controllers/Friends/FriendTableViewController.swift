@@ -9,8 +9,7 @@ import UIKit
 
 class FriendTableViewController: UITableViewController {
     
-    
-    
+
     // MARK: - Private Properties
 
     private var friends: Friends = Friends()
@@ -19,6 +18,7 @@ class FriendTableViewController: UITableViewController {
         friendDictionary.keys.sorted()
     }
     private var originFriendDictionary: [String: [Friend]] = [:]
+
 
     // MARK: - Lifecycle
 

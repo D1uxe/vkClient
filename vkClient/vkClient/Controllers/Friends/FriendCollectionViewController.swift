@@ -11,12 +11,11 @@ class FriendCollectionViewController: UICollectionViewController {
     
     //MARK: - Public Properties
     
-    var friendPhoto: [String] = []
-    
+    var friendPhoto: [String] = [] // сюда данные приходят из метода prepare(for segue:) класса FriendTableVewController
+
     
     //MARK: - Lifecycle
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -25,7 +24,6 @@ class FriendCollectionViewController: UICollectionViewController {
     }
 
 
-    
     //MARK: - Private Methods
     
     fileprivate func collectionFlowLayoutSettings() {
@@ -59,26 +57,43 @@ class FriendCollectionViewController: UICollectionViewController {
     // MARK: UICollectionViewDataSource
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
+
         return 1
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
+
         return friendPhoto.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FriendCollectionCell", for: indexPath) as! FriendCollectionViewCell
 
-       let photo = friendPhoto[indexPath.row]
+       let photo = friendPhoto[indexPath.item]
         
         cell.friendPhotoImageView.image = UIImage(named: photo)
 
         return cell
     }
 
+
+
     // MARK: UICollectionViewDelegate
+
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+
+        let friendPhotoBrowserVC = FriendPhotoBrowserViewController()
+
+        friendPhotoBrowserVC.friendPhotoes = friendPhoto
+        friendPhotoBrowserVC.selectedPhoto = indexPath.item
+
+        friendPhotoBrowserVC.modalPresentationStyle = .automatic
+        friendPhotoBrowserVC.modalTransitionStyle = .coverVertical
+        self.navigationController?.pushViewController(friendPhotoBrowserVC, animated: true)
+
+    }
+
 
     /*
      // Uncomment this method to specify if the specified item should be highlighted during tracking

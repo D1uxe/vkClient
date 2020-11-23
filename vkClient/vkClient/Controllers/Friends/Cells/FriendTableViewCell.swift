@@ -14,16 +14,14 @@ class FriendTableViewCell: UITableViewCell {
     @IBOutlet var friendAvatarImageView: UIImageView!
     @IBOutlet var friendNameLabel: UILabel!
     @IBOutlet weak var friendAvatarShadowView: ShadowView!
-    
-    
-    
+
+
     //MARK: - Private Properties
     
         lazy private var avatarTapGestureRecognizer: UITapGestureRecognizer = {
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(tapOnAvatar))
         return recognizer
     }()
-    
     
     
     // MARK: - Public Methods
