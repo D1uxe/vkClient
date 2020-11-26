@@ -169,7 +169,7 @@
         <!--Friends Navigation Controller-->
         <scene sceneID="CdH-Q1-Ft4">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="aaE-bD-352" userLabel="Friends Navigation Controller" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="aaE-bD-352" userLabel="Friends Navigation Controller" customClass="CustomNavigationController" customModule="vkClient" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Друзья" image="person.fill" catalog="system" selectedImage="person.fill" id="Pqg-pZ-Buw"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>

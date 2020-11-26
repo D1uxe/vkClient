@@ -19,7 +19,7 @@ class LoadingViewController: UIViewController {
     //MARK: - Private Properties
 
     private var repeatCount: Int = 0
-
+    private let scale = CGAffineTransform(scaleX: 0.8, y: 0.8)
 
     // MARK: - Lifecycle
 
@@ -49,19 +49,25 @@ class LoadingViewController: UIViewController {
                                                        relativeDuration: 1/3,
                                                        animations: { [unowned self] in
                                                         self.rightDot.alpha = 1
+                                                        self.rightDot.transform = .identity
                                                         self.leftDot.alpha = 0
+                                                        self.leftDot.transform = scale
                                                        })
                                     UIView.addKeyframe(withRelativeStartTime: 1/3,
                                                        relativeDuration: 1/3,
                                                        animations: { [unowned self] in
                                                         self.leftDot.alpha = 1
+                                                        self.leftDot.transform = .identity
                                                         self.middleDot.alpha = 0
+                                                        self.middleDot.transform = scale
                                                        })
                                     UIView.addKeyframe(withRelativeStartTime: 2/3,
                                                        relativeDuration: 1/3,
                                                        animations: {[unowned self] in
                                                         self.middleDot.alpha = 1
+                                                        self.middleDot.transform = .identity
                                                         self.rightDot.alpha = 0
+                                                        self.rightDot.transform = scale
                                                        })
                                 },
                                 completion: { [unowned self] _ in
