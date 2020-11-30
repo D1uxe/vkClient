@@ -119,18 +119,24 @@ class LikeControl: UIControl {
 
     
     private func animateImage() {
-        
         UIView.animate(withDuration: 0.5,
-                       delay: 0.1,
-                       usingSpringWithDamping: 0.5,
-                       initialSpringVelocity: 0.0,
-                       options: [],
-                       animations: { [unowned self] in
-                           self.imageView.transform = CGAffineTransform(scaleX: 1.07, y: 1.07)
+                       delay: 0.0,
+                       usingSpringWithDamping: 0.3,
+                       initialSpringVelocity: 0,
+                       options: [.curveEaseInOut],
+                       animations: {
+                           self.imageView.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+                           UIView.animate(withDuration: 0.5,
+                                          delay: 0.3,
+                                          usingSpringWithDamping: 0.3,
+                                          initialSpringVelocity: 0.5,
+                                          options: [.curveEaseInOut],
+                                          animations: {
+                                              self.imageView.transform = .identity
+                                          },
+                                          completion: nil)
                        },
-                       completion: { [unowned self] _ in
-                           self.imageView.transform = .identity
-                       })
+                       completion: nil)
 
         /*
                  let animation = CASpringAnimation(keyPath: "transform.scale")

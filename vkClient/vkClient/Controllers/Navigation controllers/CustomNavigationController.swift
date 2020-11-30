@@ -55,7 +55,7 @@ extension CustomNavigationController: UINavigationControllerDelegate {
             self.interactiveTransition.viewController = toVC
             return PushAnimator()
         } else if operation == .pop {
-            if navigationController.viewControllers.first != toVC {
+            if navigationController.viewControllers.first != toVC { // я подсмотрел это в методичке, дебагером гонял туда-сюда, но так и не понял зачем эта проверка? самый первый (root) контролер все равно ведь нельзя pop'нуть?
                 self.interactiveTransition.viewController = toVC
             }
             return PopAnimator()
