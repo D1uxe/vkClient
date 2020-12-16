@@ -106,8 +106,40 @@ class FriendTableViewController: UITableViewController {
         return sectionTitles
     }
 
-    
-    
+    /* didHighlightRowAt
+    override func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
+
+        /* работает
+        let cell = tableView.cellForRow(at: indexPath) as! FriendTableViewCell
+
+        UIView.animate(withDuration: 0.2,
+                       delay: 0,
+                       usingSpringWithDamping: 0.3,
+                       initialSpringVelocity: 1.0,
+                       options: [],
+                       animations: { () -> Void in
+                           let scale = CGAffineTransform(scaleX: 0.95, y: 0.95)
+                           cell.friendAvatarImageView.transform = scale
+                           cell.friendAvatarShadowView.transform = scale
+                       },
+                       completion: { _ in
+                           cell.friendAvatarImageView.transform = .identity
+                           cell.friendAvatarShadowView.transform = .identity
+                       })
+         */
+    }
+ */
+
+    /* didSelect
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+        let cell = tableView.cellForRow(at: indexPath) as! FriendTableViewCell
+
+        print(cell.friendNameLabel!.text!)
+
+    }
+   */
+
     /*
      // Override to support conditional editing of the table view.
      override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

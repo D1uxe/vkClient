@@ -111,7 +111,7 @@ class LikeControl: UIControl {
         UIView.transition(with: counterLabel,
                           duration: 0.3,
                           options: .transitionFlipFromBottom,
-                          animations: { [unowned self] in
+                          animations: { 
                               self.counterLabel.text = str
                           })
         counterLabel.textColor = isLike ? #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1) : #colorLiteral(red: 0.2536475658, green: 0.4901949167, blue: 0.8384085298, alpha: 1)

@@ -50,12 +50,12 @@ class FriendTableViewCell: UITableViewCell {
                        usingSpringWithDamping: 0.3,
                        initialSpringVelocity: 1.0,
                        options: [],
-                       animations: { [unowned self] in
+                       animations: {
                            let scale = CGAffineTransform(scaleX: 0.95, y: 0.95)
                            self.friendAvatarImageView.transform = scale
                            self.friendAvatarShadowView.transform = scale
                        },
-                       completion: { [unowned self] _ in
+                       completion: { _ in
                            self.friendAvatarImageView.transform = .identity
                            self.friendAvatarShadowView.transform = .identity
                        })

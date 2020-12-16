@@ -128,7 +128,7 @@ class FriendPhotoBrowserViewController: UIViewController {
     private func startAnimate() {
         setupImage()
         UIView.animate(withDuration: 0.5,
-                       animations: {[unowned self] in
+                       animations: {
                         self.leftImageView.transform = .identity
                         self.middleImageView.transform = .identity
                         self.rightImageView.transform = .identity
@@ -147,14 +147,14 @@ class FriendPhotoBrowserViewController: UIViewController {
                         withDuration: 0.5,
                         delay: 0,
                         options: [],
-                        animations: { [unowned self] in
+                        animations: {
                             let scale = CGAffineTransform(scaleX: 0.8, y: 0.8)
                             let translation = CGAffineTransform(translationX: self.view.bounds.maxX - 40, y: 0)
                             let transform = scale.concatenating(translation)
                             self.middleImageView.transform = transform
                             self.rightImageView.transform = transform
                             self.leftImageView.transform = transform
-                    }, completion: { [unowned self] _ in
+                    }, completion: { _ in
                         self.selectedPhoto -= 1
                         if self.selectedPhoto < 0 {
                             self.selectedPhoto = self.friendPhotoes.count - 1
@@ -170,14 +170,14 @@ class FriendPhotoBrowserViewController: UIViewController {
                         withDuration: 0.5,
                         delay: 0,
                         options: [],
-                        animations: { [unowned self] in
+                        animations: {
                             let scale = CGAffineTransform(scaleX: 0.8, y: 0.8)
                             let translation = CGAffineTransform(translationX: -self.view.bounds.maxX + 40, y: 0)
                             let transform = scale.concatenating(translation)
                             self.middleImageView.transform = transform
                             self.rightImageView.transform = transform
                             self.leftImageView.transform = transform
-                    }, completion: { [unowned self] _ in
+                    }, completion: { _ in
                         self.selectedPhoto += 1
                         if self.selectedPhoto > self.friendPhotoes.count - 1 {
                             self.selectedPhoto = 0
