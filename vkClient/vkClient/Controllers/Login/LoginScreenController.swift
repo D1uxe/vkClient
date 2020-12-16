@@ -20,7 +20,6 @@ class LoginScreenController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
 
         // TODO: Разобраться и сделать логику с появлением и скрытием клавиатуры.
     }
@@ -51,7 +50,7 @@ class LoginScreenController: UIViewController {
     // MARK: - IBActions
 
 
-    @IBAction func LlogOut(unwindSegue: UIStoryboardSegue) {
+    @IBAction func logOut(unwindSegue: UIStoryboardSegue) {
 
     }
 
@@ -65,6 +64,7 @@ class LoginScreenController: UIViewController {
             loginButton.alpha = 0.6
         }
     }
+
 }
 
 

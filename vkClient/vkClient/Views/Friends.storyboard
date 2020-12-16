@@ -96,7 +96,7 @@
                     <navigationItem key="navigationItem" title="Друзья" id="EWy-0n-rDq">
                         <barButtonItem key="leftBarButtonItem" title="Выйти" id="gek-Ai-UVr">
                             <connections>
-                                <segue destination="U9c-Jp-55B" kind="unwind" unwindAction="LlogOutWithUnwindSegue:" id="om5-Os-v7Q"/>
+                                <segue destination="U9c-Jp-55B" kind="unwind" unwindAction="logOutWithUnwindSegue:" id="EP1-YG-Abr"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

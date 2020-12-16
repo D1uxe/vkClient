@@ -36,6 +36,7 @@
 		52AC45CC256D7D1200A778B1 /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AC45CB256D7D1200A778B1 /* CustomNavigationController.swift */; };
 		52AC45D1256D7FC600A778B1 /* CustomInteractiveTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AC45D0256D7FC600A778B1 /* CustomInteractiveTransition.swift */; };
 		52B9F0F52563F30B00AF2B4B /* ScaledHeightImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B9F0F42563F30B00AF2B4B /* ScaledHeightImageView.swift */; };
+		52BF4E9B258A631700FA8C69 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BF4E9A258A631700FA8C69 /* Session.swift */; };
 		52E7B371256D81F200DBE969 /* PushAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E7B370256D81F200DBE969 /* PushAnimator.swift */; };
 		52E7B376256D823800DBE969 /* PopAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E7B375256D823800DBE969 /* PopAnimator.swift */; };
 /* End PBXBuildFile section */
@@ -72,6 +73,7 @@
 		52AC45CB256D7D1200A778B1 /* CustomNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationController.swift; sourceTree = "<group>"; };
 		52AC45D0256D7FC600A778B1 /* CustomInteractiveTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInteractiveTransition.swift; sourceTree = "<group>"; };
 		52B9F0F42563F30B00AF2B4B /* ScaledHeightImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaledHeightImageView.swift; sourceTree = "<group>"; };
+		52BF4E9A258A631700FA8C69 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		52E7B370256D81F200DBE969 /* PushAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushAnimator.swift; sourceTree = "<group>"; };
 		52E7B375256D823800DBE969 /* PopAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopAnimator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -237,6 +239,7 @@
 				52A61B392545BC5800DAEE04 /* AppDelegate.swift */,
 				52A61B422545BC5900DAEE04 /* Assets.xcassets */,
 				52A61B472545BC5900DAEE04 /* Info.plist */,
+				52BF4E99258A623300FA8C69 /* Network services */,
 				52B9F10025642B1C00AF2B4B /* Helpers */,
 				523A67BF254F051A0049D433 /* Models */,
 				523A67BD254F04530049D433 /* Views */,
@@ -267,6 +270,14 @@
 				52B9F0F42563F30B00AF2B4B /* ScaledHeightImageView.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		52BF4E99258A623300FA8C69 /* Network services */ = {
+			isa = PBXGroup;
+			children = (
+				52BF4E9A258A631700FA8C69 /* Session.swift */,
+			);
+			path = "Network services";
 			sourceTree = "<group>";
 		};
 		52E7B373256D81FD00DBE969 /* Animation controllers */ = {
@@ -371,6 +382,7 @@
 				52AC45D1256D7FC600A778B1 /* CustomInteractiveTransition.swift in Sources */,
 				527DDDAC25619CA900FF87B8 /* NewsTableViewController.swift in Sources */,
 				52444EDD25728A110081E8F2 /* AnimatedTabBarController.swift in Sources */,
+				52BF4E9B258A631700FA8C69 /* Session.swift in Sources */,
 				5278EEC7254F54E9004F1EB4 /* FriendTableViewCell.swift in Sources */,
 				527DDDAF25619CC500FF87B8 /* NewsTableViewCell.swift in Sources */,
 				5247374D25585FC90036A773 /* AvtarView.swift in Sources */,
