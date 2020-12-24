@@ -13,7 +13,12 @@ class LoginScreenController: UIViewController {
 
     @IBOutlet var loginTextField: UITextField!
     @IBOutlet var passwordTextField: UITextField!
-    @IBOutlet var loginButton: UIButton!
+    @IBOutlet var loginButton: UIButton! {
+        didSet {
+            loginButton.isEnabled = true
+            loginButton.alpha = 1.0
+        }
+    }
     
 
     // MARK: - Lifecycle
@@ -39,7 +44,7 @@ class LoginScreenController: UIViewController {
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         let login = loginTextField.text!
         let password = passwordTextField.text!
-        guard login == "1" && password == "1" else {
+        guard login == "" && password == "" else {
             showMessage(message: "Не верный логин или пароль")
             return false
         }
@@ -63,6 +68,16 @@ class LoginScreenController: UIViewController {
             loginButton.isEnabled = false
             loginButton.alpha = 0.6
         }
+    }
+
+    @IBAction func vkAPIRequest() {
+
+        QueryFriends.get(fields: [.photo_200_orig])
+
+        QueryGroups.get()
+        QueryGroups.search(group: "Swift")
+
+        QueryPhotos.getAll(for: Session.shared.userId ?? 0)
     }
 
 }

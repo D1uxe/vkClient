@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="beh-VD-Rdh">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="beh-VD-Rdh">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -112,17 +112,27 @@
                                             <segue destination="ggY-0N-UAF" kind="presentation" identifier="LoginButtonSegue" id="YQC-cD-czw"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DEp-Hk-HKV">
+                                        <rect key="frame" x="133.5" y="591" width="147" height="36"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <state key="normal" title="Сделать запрос"/>
+                                        <connections>
+                                            <action selector="vkAPIRequest" destination="BYZ-38-t0r" eventType="touchUpInside" id="S1z-zC-bpw"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="aiJ-bW-2z3" secondAttribute="trailing" constant="129.5" id="0Bg-2u-TwB"/>
                                     <constraint firstItem="iOA-mq-DqN" firstAttribute="trailing" secondItem="xGl-BJ-N9T" secondAttribute="trailing" constant="8" id="1G5-xw-mZi"/>
                                     <constraint firstItem="iOA-mq-DqN" firstAttribute="trailing" secondItem="L8c-3u-LLv" secondAttribute="trailing" constant="8" id="CKW-gE-ErE"/>
+                                    <constraint firstItem="DEp-Hk-HKV" firstAttribute="centerX" secondItem="xlt-WT-EhR" secondAttribute="centerX" id="DBd-uv-TRf"/>
                                     <constraint firstItem="aiJ-bW-2z3" firstAttribute="top" secondItem="xlt-WT-EhR" secondAttribute="top" constant="75" id="Dkb-6a-d44"/>
                                     <constraint firstItem="iOA-mq-DqN" firstAttribute="trailing" secondItem="8wN-PR-YcV" secondAttribute="trailing" constant="8" id="EIp-QK-sMV"/>
                                     <constraint firstItem="8wN-PR-YcV" firstAttribute="top" secondItem="aiJ-bW-2z3" secondAttribute="bottom" constant="150" id="GO6-vZ-8E3">
                                         <variation key="heightClass=compact" constant="75"/>
                                     </constraint>
                                     <constraint firstItem="aiJ-bW-2z3" firstAttribute="centerX" secondItem="xlt-WT-EhR" secondAttribute="centerX" id="Kdu-tL-kfh"/>
+                                    <constraint firstItem="DEp-Hk-HKV" firstAttribute="centerY" secondItem="xlt-WT-EhR" secondAttribute="centerY" constant="200" id="M3M-dv-JbL"/>
                                     <constraint firstItem="8wN-PR-YcV" firstAttribute="leading" secondItem="iOA-mq-DqN" secondAttribute="leading" constant="8" id="TJW-yE-guO"/>
                                     <constraint firstItem="xGl-BJ-N9T" firstAttribute="leading" secondItem="iOA-mq-DqN" secondAttribute="leading" constant="8" id="YAh-WI-KH8"/>
                                     <constraint firstItem="L8c-3u-LLv" firstAttribute="leading" secondItem="iOA-mq-DqN" secondAttribute="leading" constant="8" id="Yx4-lq-dvX"/>
@@ -151,7 +161,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-199" y="119"/>
+            <point key="canvasLocation" x="-200.00000000000003" y="118.52678571428571"/>
         </scene>
         <!--Animated Tab Bar Controller-->
         <scene sceneID="r4A-7z-9IE">

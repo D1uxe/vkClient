@@ -47,30 +47,30 @@ class LoadingViewController: UIViewController {
                                 animations: {
                                     UIView.addKeyframe(withRelativeStartTime: 0.0,
                                                        relativeDuration: 1/3,
-                                                       animations: { [unowned self] in
+                                                       animations: {
                                                         self.rightDot.alpha = 1
                                                         self.rightDot.transform = .identity
                                                         self.leftDot.alpha = 0
-                                                        self.leftDot.transform = scale
+                                                        self.leftDot.transform = self.scale
                                                        })
                                     UIView.addKeyframe(withRelativeStartTime: 1/3,
                                                        relativeDuration: 1/3,
-                                                       animations: { [unowned self] in
+                                                       animations: {
                                                         self.leftDot.alpha = 1
                                                         self.leftDot.transform = .identity
                                                         self.middleDot.alpha = 0
-                                                        self.middleDot.transform = scale
+                                                        self.middleDot.transform = self.scale
                                                        })
                                     UIView.addKeyframe(withRelativeStartTime: 2/3,
                                                        relativeDuration: 1/3,
-                                                       animations: {[unowned self] in
+                                                       animations: {
                                                         self.middleDot.alpha = 1
                                                         self.middleDot.transform = .identity
                                                         self.rightDot.alpha = 0
-                                                        self.rightDot.transform = scale
+                                                        self.rightDot.transform = self.scale
                                                        })
                                 },
-                                completion: { [unowned self] _ in
+                                completion: { _ in
                                     if self.repeatCount != 0 {
                                         self.repeatCount += 1
                                         self.animateDot()
@@ -84,9 +84,15 @@ class LoadingViewController: UIViewController {
 
     private func presentLoginViewController() {
 
+        let vc = LoginWebViewController()
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true, completion: nil)
+
+        /*
         let storyBoard: UIStoryboard = UIStoryboard(name: "LoginScreen", bundle: nil)
         let loginViewController: LoginScreenController = storyBoard.instantiateViewController(withIdentifier: "LoginView") as! LoginScreenController
         self.present(loginViewController, animated: true, completion: nil)
+         */
     }
 
     private func setupDots() {
