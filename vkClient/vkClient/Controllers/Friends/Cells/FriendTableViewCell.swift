@@ -38,7 +38,12 @@ class FriendTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
+
+    func configure(friendName: String, friendAvatar: UIImage?) {
+        
+        self.friendNameLabel.text = friendName
+        self.friendAvatarImageView.image = friendAvatar
+    }
     
     
     //MARK: - Private Methods

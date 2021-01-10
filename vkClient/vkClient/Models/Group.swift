@@ -2,15 +2,36 @@
 //  Group.swift
 //  vkClient
 //
-//  Created by MacBook Pro on 03.11.2020.
+//  Created by MacBook Pro on 27.12.2020.
 //
 
 import Foundation
 
+class Group: Codable {
+
+    var id: Int = 0
+    var name: String = ""
+    var avatarURL: String = ""
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case name
+        case avatarURL = "photo_50"
+    }
+
+    
+}
+
+
+
+
+
+
+/* depricated
 struct Group {
     let name: String
     let avatar: String
-    
+
 }
 
 struct Groups {
@@ -20,3 +41,4 @@ struct Groups {
         Group(name: "Щ.И.Т.", avatar: "Shield")
     ]
 }
+ */

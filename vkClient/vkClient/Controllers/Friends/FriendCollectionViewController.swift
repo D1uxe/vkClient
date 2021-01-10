@@ -8,11 +8,17 @@
 import UIKit
 
 class FriendCollectionViewController: UICollectionViewController {
-    
+
+    //MARK: - Private Properties
+
+    private let imageService = ImageService()
+
+
     //MARK: - Public Properties
     
     var friendPhoto: [String] = [] // сюда данные приходят из метода prepare(for segue:) класса FriendTableVewController
-
+    var friendPhotoo = [Photo]()
+    var friendId: Int?
     
     //MARK: - Lifecycle
 
@@ -21,6 +27,10 @@ class FriendCollectionViewController: UICollectionViewController {
 
         collectionFlowLayoutSettings()
 
+        QueryPhotos.getAll(for: friendId, completion: { [weak self] photos in
+            self?.friendPhotoo = photos
+            self?.collectionView.reloadData()
+        })
     }
 
 
@@ -63,16 +73,19 @@ class FriendCollectionViewController: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 
-        return friendPhoto.count
+        return friendPhotoo.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FriendCollectionCell", for: indexPath) as! FriendCollectionViewCell
 
-       let photo = friendPhoto[indexPath.item]
-        
-        cell.friendPhotoImageView.image = UIImage(named: photo)
+        let photoObject = friendPhotoo[indexPath.item]
+
+        imageService.getPhoto(byURL: photoObject.sizes[0].url, completion: { photo in
+            cell.friendPhotoImageView.image = photo
+            cell.LikeControl.likeCounter = Float(photoObject.likes.likesCount)
+            })
 
         return cell
     }
@@ -85,13 +98,14 @@ class FriendCollectionViewController: UICollectionViewController {
 
         let friendPhotoBrowserVC = FriendPhotoBrowserViewController()
 
-        friendPhotoBrowserVC.friendPhotoes = friendPhoto
+        friendPhotoBrowserVC.friendPhotos = friendPhoto
         friendPhotoBrowserVC.selectedPhoto = indexPath.item
 
         friendPhotoBrowserVC.modalPresentationStyle = .automatic
         friendPhotoBrowserVC.modalTransitionStyle = .coverVertical
-        self.navigationController?.pushViewController(friendPhotoBrowserVC, animated: true)
-
+       // self.navigationController?.pushViewController(friendPhotoBrowserVC, animated: true)
+        //TODO: Сделать просмотр фотографий друга.
+        // Закоментировал пояление контроллера, т.к. нужно заново получать все фотограйии по URL. Возможно, что когда доберемся до Realm, код контроллера придется еще раз переделать. Подожду уроков по Realm
     }
 
 

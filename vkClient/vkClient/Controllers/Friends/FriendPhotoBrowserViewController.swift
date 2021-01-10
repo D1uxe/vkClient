@@ -11,7 +11,7 @@ class FriendPhotoBrowserViewController: UIViewController {
 
     //MARK: - Public Properties
 
-    var friendPhotoes: [String] = []
+    var friendPhotos: [String] = []
     var selectedPhoto = 0
 
     var leftImageView: UIImageView!
@@ -63,10 +63,10 @@ class FriendPhotoBrowserViewController: UIViewController {
 
         // просмотр фото по кругу
         if indexPhotoLeft < 0 {
-            indexPhotoLeft = friendPhotoes.count - 1
+            indexPhotoLeft = friendPhotos.count - 1
 
         }
-        if indexPhotoRight > friendPhotoes.count - 1 {
+        if indexPhotoRight > friendPhotos.count - 1 {
             indexPhotoRight = 0
         }
         view.subviews.forEach({ $0.removeFromSuperview() })
@@ -74,9 +74,9 @@ class FriendPhotoBrowserViewController: UIViewController {
         self.middleImageView = UIImageView()
         self.rightImageView = UIImageView()
 
-        self.leftImageView.image = UIImage(named: friendPhotoes[indexPhotoLeft])
-        self.middleImageView.image = UIImage(named: friendPhotoes[indexPhotoMid])
-        self.rightImageView.image = UIImage(named: friendPhotoes[indexPhotoRight])
+        self.leftImageView.image = UIImage(named: friendPhotos[indexPhotoLeft])
+        self.middleImageView.image = UIImage(named: friendPhotos[indexPhotoMid])
+        self.rightImageView.image = UIImage(named: friendPhotos[indexPhotoRight])
 
         self.leftImageView.contentMode = .scaleAspectFit
         self.middleImageView.contentMode = .scaleAspectFit
@@ -157,7 +157,7 @@ class FriendPhotoBrowserViewController: UIViewController {
                     }, completion: { _ in
                         self.selectedPhoto -= 1
                         if self.selectedPhoto < 0 {
-                            self.selectedPhoto = self.friendPhotoes.count - 1
+                            self.selectedPhoto = self.friendPhotos.count - 1
                         }
                         self.startAnimate()
                     })
@@ -179,7 +179,7 @@ class FriendPhotoBrowserViewController: UIViewController {
                             self.leftImageView.transform = transform
                     }, completion: { _ in
                         self.selectedPhoto += 1
-                        if self.selectedPhoto > self.friendPhotoes.count - 1 {
+                        if self.selectedPhoto > self.friendPhotos.count - 1 {
                             self.selectedPhoto = 0
                         }
                         self.startAnimate()

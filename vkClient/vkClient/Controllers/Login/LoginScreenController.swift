@@ -45,7 +45,8 @@ class LoginScreenController: UIViewController {
         let login = loginTextField.text!
         let password = passwordTextField.text!
         guard login == "" && password == "" else {
-            showMessage(message: "Не верный логин или пароль")
+            //showMessage(message: "Не верный логин или пароль")
+            self.showAlert(title: "Ошибка", message: "Не верный логин или пароль")
             return false
         }
         return true
@@ -72,12 +73,31 @@ class LoginScreenController: UIViewController {
 
     @IBAction func vkAPIRequest() {
 
-        QueryFriends.get(fields: [.photo_200_orig])
+        QueryFriends.get(fields: [.photo_100, .city, .country] ,completion: { friends in
+            print("++++++++ FRIENDS ++++++++")
+            print(friends)
+        })
 
-        QueryGroups.get()
-        QueryGroups.search(group: "Swift")
+        QueryGroups.get(completion: {groups in
+            print("======== GROUPS ========")
+            print(groups)
+        })
 
-        QueryPhotos.getAll(for: Session.shared.userId ?? 0)
+        QueryGroups.search(group: "Swift", completion: { searchedGroups in
+            print("-------- SEARCHED GROUPS --------")
+            print(searchedGroups)
+    })
+
+        QueryGroups.leave(groupId: 32295218, completion: { result in
+            print("****** GROUP 32295218 LEAVE")
+            print(result)
+        })
+
+        QueryPhotos.getAll(for: Session.shared.userId ?? 0, completion: { photos in
+            print("******** PHOTOS ********")
+            print(photos)
+        })
+
     }
 
 }

@@ -12,21 +12,27 @@ class FriendTableViewController: UITableViewController {
 
     // MARK: - Private Properties
 
-    private var friends: Friends = Friends()
+    //private var friends: Friends = Friends()
+    private var friends: [Friend] = []
     private var friendDictionary = [String: [Friend]]()
     private var sectionTitles: [String] {
         friendDictionary.keys.sorted()
     }
     private var originFriendDictionary: [String: [Friend]] = [:]
-
+    private let imageService = ImageService()
 
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // проинициализируем словарь где ключ - первая буква слова
-        friendDictionary = Dictionary(grouping: friends.friendsList, by: { String($0.name.prefix(1)) })
-        originFriendDictionary = friendDictionary
+
+        QueryFriends.get(completion: { [weak self] friends in
+
+            // проинициализируем словарь где ключ - первая буква слова
+            self?.friendDictionary = Dictionary(grouping: friends, by: { String($0.firstName.prefix(1)) })
+            self?.originFriendDictionary = self?.friendDictionary ?? [:]
+            self?.tableView.reloadData()
+        })
     }
     
 
@@ -39,7 +45,7 @@ class FriendTableViewController: UITableViewController {
         guard let destinationController = segue.destination as? FriendCollectionViewController else { return }
         if let indexPath = tableView.indexPathForSelectedRow {
             if let friend = friendDictionary[sectionTitles[indexPath.section]] {
-                destinationController.friendPhoto = friend[indexPath.row].photo
+                destinationController.friendId = friend[indexPath.row].id
             }
         }
     }
@@ -52,14 +58,14 @@ class FriendTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
+
         return sectionTitles.count
     }
 
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // return friendDictionary[sectionTitles[section]]?.count ?? 0
 
+        // return friendDictionary[sectionTitles[section]]?.count ?? 0
         let letter = sectionTitles[section]
         if let friend = friendDictionary[letter] {
             return friend.count
@@ -74,8 +80,17 @@ class FriendTableViewController: UITableViewController {
 
         let letter = sectionTitles[indexPath.section]
         if let friend = friendDictionary[letter] {
+            imageService.getPhoto(byURL: friend[indexPath.row].avatarURL, completion: { avatar in
+                let fullName = friend[indexPath.row].firstName + " " + friend[indexPath.row].lastName
+
+                cell.configure(friendName: fullName, friendAvatar: avatar)
+            })
+
+
+            /*
             cell.friendAvatarImageView.image = UIImage(named: friend[indexPath.row].avatar)
             cell.friendNameLabel.text = friend[indexPath.row].name
+             */
         }
 
         return cell
@@ -179,10 +194,11 @@ class FriendTableViewController: UITableViewController {
 // MARK: - Search Bar Delegate
 
 extension FriendTableViewController: UISearchBarDelegate {
+
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
        
         friendDictionary = searchText.isEmpty ? originFriendDictionary : originFriendDictionary
-            .mapValues({ $0.lazy.filter({ $0.name
+            .mapValues({ $0.lazy.filter({ $0.firstName
                     .lowercased()
                     .contains(searchText.lowercased()) }) })
             .filter({ !$0.value.isEmpty })

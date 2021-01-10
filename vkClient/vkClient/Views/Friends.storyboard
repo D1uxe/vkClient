@@ -134,6 +134,7 @@
                                     </constraints>
                                 </collectionViewCellContentView>
                                 <connections>
+                                    <outlet property="LikeControl" destination="hpm-qW-RAH" id="YFv-55-ZnD"/>
                                     <outlet property="friendPhotoImageView" destination="CWW-GX-5Vs" id="Ztl-jE-CBZ"/>
                                 </connections>
                             </collectionViewCell>

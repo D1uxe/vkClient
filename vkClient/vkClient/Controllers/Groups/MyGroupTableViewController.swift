@@ -8,23 +8,40 @@
 import UIKit
 
 class MyGroupTableViewController: UITableViewController {
-    
+
+    //MARK: - Private Properties
+
+    private let imageService = ImageService()
+
+
     // MARK: - Public Properties
-    
-    var groups: Groups = Groups(groupList: [])
+
+    var groups: [Group] = []
 
     
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        updateGroups()
     }
 
+
+    //MARK: - Private Methods
+
+    fileprivate func updateGroups() {
+        QueryGroups.get(completion: { [weak self] groups in
+            self?.groups = groups
+            self?.tableView.reloadData()
+        })
+    }
     
     // MARK: - Public Methods
     
     // Получим данные из контроллера AllGroupsTableViewController
     @IBAction func addGroupToMyGroups(unwindSegue: UIStoryboardSegue) {
+
         // проверим что переход произошел именно по клику из таблицы "все группы"
         if unwindSegue.identifier == "addGroup" {
             // запоминаем контроллер, который пришел
@@ -32,16 +49,35 @@ class MyGroupTableViewController: UITableViewController {
             // получаем индекс выделенной ячейки
             if let indexPath = sourceController.tableView.indexPathForSelectedRow {
                 // Получаем группу из переменной groups источника по индексу
-                let selectedGroup = sourceController.groups.groupList[indexPath.row]
+                let selectedGroup = sourceController.groups[indexPath.row]
+                // отправим запрос на вступление в группу
+                QueryGroups.join(groupId: selectedGroup.id, completion: { [weak self] result in
+                    guard result == 1 else {
+                        self?.showAlert(title: "Сообщение", message: "Запрос на вступление в группу отклонен")
+                        return
+                    }
+                    self?.updateGroups()
+                })
+            }
+        }
+        /*
+        // проверим что переход произошел именно по клику из таблицы "все группы"
+        if unwindSegue.identifier == "addGroup" {
+            // запоминаем контроллер, который пришел
+            guard let sourceController = unwindSegue.source as? AllGroupTableViewController else { return }
+            // получаем индекс выделенной ячейки
+            if let indexPath = sourceController.tableView.indexPathForSelectedRow {
+                // Получаем группу из переменной groups источника по индексу
+                let selectedGroup = sourceController.groups[indexPath.row]
                 // если такой группы нет в списке
-                if !groups.groupList.contains(where: { $0.name == selectedGroup.name }) {
+                if !groups.contains(where: { $0.name == selectedGroup.name }) {
                     // Добавляем группу в список (в переменную groups этого класса)
-                    groups.groupList.append(selectedGroup)
+                    groups.append(selectedGroup)
                     // Обновляем таблицу
                     tableView.reloadData()
                 }
             }
-        }
+        }*/
     }
     
     
@@ -49,35 +85,43 @@ class MyGroupTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
+
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return groups.groupList.count
+
+        return groups.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MyGroupTableCell", for: indexPath) as! MyGroupTableViewCell
 
-        let group = groups.groupList[indexPath.row]
-        cell.avatarGroupImageView.image = UIImage(named: group.avatar)
-        cell.nameGroupLabel.text = group.name
+        let group = groups[indexPath.row]
+        imageService.getPhoto(byURL: group.avatarURL, completion: {  avatar in
+            cell.configure(groupName: group.name, groupAvatar: avatar)
+        })
 
         return cell
     }
 
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+
         if editingStyle == .delete {
-            groups.groupList.remove(at: indexPath.row)
+            let selectedGroup = groups[indexPath.row]
+            QueryGroups.leave(groupId: selectedGroup.id, completion: { [weak self] result in
+                guard result == 1 else {
+                    self?.showAlert(title: "Сообщение", message: "Ошибка запроса")
+                    return
+                }
+            })
+            groups.remove(at: indexPath.row)
             // Delete the row from the data source
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
 
-    
     
     /*
      // Override to support conditional editing of the table view.

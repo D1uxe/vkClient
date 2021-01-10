@@ -13,10 +13,11 @@ class QueryPhotos {
 
     private init() {}
 
-
     /// Возвращает все фотографии пользователя или сообщества в антихронологическом порядке
-    /// - Parameter ownerId: Идентификатор владельца альбома. Для сообществ идентификатор необходимо указывать со знаком "-"
-    class func getAll(for ownerId: Int?) {
+    /// - Parameters:
+    ///   - ownerId: идентификатор пользователя или сообщества, фотографии которого нужно получить.  Для сообществ идентификатор необходимо указывать со знаком "-"
+    ///   - completion: замыкание для возврата результата запроса. После успешного выполнения возвращает массив объектов Photo.
+    class func getAll(for ownerId: Int?, completion: @escaping ([Photo]) -> Void) {
 
         guard let ownerId = ownerId else { return }
         var urlConstructor = URLComponents()
@@ -38,10 +39,8 @@ class QueryPhotos {
         session.dataTask(with: url) { (data, response, error) in
 
             guard let data = data else { return }
-            //print(data)
 
-            //guard let response = response else { return }
-            //print(response)
+            /*
             do {
                 let json = try JSONSerialization.jsonObject(with: data, options: [])
                 print("********** PHOTOS *********")
@@ -49,6 +48,17 @@ class QueryPhotos {
             } catch {
                 print("Photos. Ошибка сериализации JSON \(error)")
             }
+             */
+
+            do {
+                let photos = try JSONDecoder().decode(Response<Photo>.self, from: data).response.items
+                DispatchQueue.main.async {
+                    completion(photos)
+                }
+            } catch  {
+                print(error)
+            }
+
         }.resume()
     }
 

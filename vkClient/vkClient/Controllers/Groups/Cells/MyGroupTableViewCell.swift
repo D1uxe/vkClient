@@ -27,4 +27,10 @@ class MyGroupTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+
+    func configure(groupName: String?, groupAvatar: UIImage?) {
+        self.nameGroupLabel.text = groupName
+        self.avatarGroupImageView.image = groupAvatar
+    }
+
 }

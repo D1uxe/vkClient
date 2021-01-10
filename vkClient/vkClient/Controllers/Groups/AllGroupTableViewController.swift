@@ -8,11 +8,15 @@
 import UIKit
 
 class AllGroupTableViewController: UITableViewController {
-    
+
+    //MARK: - Private Properties
+
+   private let imageService = ImageService()
+
+
     // MARK: - Public Properties
 
-    var groups: Groups = Groups()
-    
+    var groups = [Group]()
     
     
     // MARK: - Lifecycle
@@ -26,23 +30,25 @@ class AllGroupTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
+
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return groups.groupList.count
+
+        return groups.count
     }
 
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "AvailableGroupTableCell", for: indexPath) as! AllGroupTableViewCell
 
-        let group = groups.groupList[indexPath.row]
-        cell.avatarGroupImageView.image = UIImage(named: group.avatar)
-        cell.nameGroupLabel.text = group.name
+        let group = groups[indexPath.row]
 
+        imageService.getPhoto(byURL: group.avatarURL, completion: { avatar in
+            cell.configure(groupName: group.name, groupAvatar: avatar)
+        })
         return cell
     }
 
@@ -94,5 +100,32 @@ class AllGroupTableViewController: UITableViewController {
     }
     */
 
+    
+}
+
+
+//MARK: - Search Bar
+
+extension AllGroupTableViewController: UISearchBarDelegate {
+
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let searchText = searchBar.searchTextField.text else { return }
+
+        QueryGroups.search(group: searchText, completion: { [weak self] groups in
+            self?.groups = groups
+            self?.tableView.reloadData()
+        })
+
+    }
+
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = false
+        groups.removeAll()
+        tableView.reloadData()
+    }
+
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = true
+    }
     
 }

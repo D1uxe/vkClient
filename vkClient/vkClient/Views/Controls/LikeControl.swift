@@ -16,7 +16,15 @@ class LikeControl: UIControl {
     private let counterLabel = UILabel()
 
     private var isLike: Bool = false
-    private var likeCounter: Float = 0 //5_099_999
+
+
+    //MARK: - Public Properties
+
+    var likeCounter: Float = 0 {
+        didSet {
+            updateCounterLabel()
+        }
+    }
     
     
 
@@ -156,13 +164,13 @@ class LikeControl: UIControl {
         if isLike {
             imageView.image = UIImage(systemName: "heart.fill")
             imageView.tintColor = #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)
-            likeCounter += 1
+            //likeCounter += 1
             animateImage()
             updateCounterLabel()
         } else {
             imageView.image = UIImage(systemName: "heart")
             imageView.tintColor = #colorLiteral(red: 0.2887516618, green: 0.5174338222, blue: 0.7922994494, alpha: 1)
-            likeCounter -= 1
+            //likeCounter -= 1
             updateCounterLabel()
         }
     }

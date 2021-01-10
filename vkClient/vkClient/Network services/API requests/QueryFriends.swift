@@ -41,8 +41,10 @@ class QueryFriends {
     private init() {}
 
     /// Возвращает список идентификаторов друзей пользователя или расширенную информацию о друзьях пользователя (при использовании параметра fields).
-    /// - Parameter fields: список дополнительных полей, которые необходимо вернуть.
-    class func get(fields: [FriendFields] = [FriendFields.photo_200_orig]) {
+    /// - Parameters:
+    ///   - fields: список дополнительных полей, которые необходимо вернуть
+    ///   - completion: замыкание для возврата результата запроса. После успешного выполнения при использовании параметра fields возвращает список объектов пользователей, но не более 5000.
+    class func get(fields: [FriendFields] = [FriendFields.photo_100], completion: @escaping ([Friend]) -> Void) {
 
         let field = fields.lazy.map({ $0.rawValue }).joined(separator: ",")
 
@@ -56,6 +58,8 @@ class QueryFriends {
             URLQueryItem(name: "user_id", value: ""),
             URLQueryItem(name: "order", value: "hints"),
             URLQueryItem(name: "fields", value: field),
+            URLQueryItem(name: "count", value: ""),
+            URLQueryItem(name: "offset", value: "0"),
             URLQueryItem(name: "access_token", value: Session.shared.token),
             URLQueryItem(name: "v", value: NetworkConstants.versionAPI),
         ]
@@ -63,19 +67,27 @@ class QueryFriends {
         guard let url = urlConstructor.url else { return }
         session.dataTask(with: url) { data, response, error in
 
-            guard let dat = data else { return }
-            //print(dat)
+            guard let data = data else { return }
 
-            //guard let respon = response else { return }
-            //print(respon)
-
+            /*
             do {
-                let json = try JSONSerialization.jsonObject(with: dat, options: [])
+                let json = try JSONSerialization.jsonObject(with: data, options: [])
                 print("++++++++++++ FRIENDS ++++++++++++")
                 print(json)
             } catch {
                 print("Friends. Ошибка сериализации JSON \(error)")
             }
+             */
+
+            do {
+                let friends = try JSONDecoder().decode(Response<Friend>.self, from: data).response.items
+                DispatchQueue.main.async {
+                    completion(friends)
+                }
+            } catch {
+                print (error)
+            }
+
         }.resume()
     }
     
