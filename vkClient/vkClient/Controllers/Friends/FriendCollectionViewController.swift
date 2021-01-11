@@ -84,7 +84,7 @@ class FriendCollectionViewController: UICollectionViewController {
 
         imageService.getPhoto(byURL: photoObject.sizes[0].url, completion: { photo in
             cell.friendPhotoImageView.image = photo
-            cell.LikeControl.likeCounter = Float(photoObject.likes.likesCount)
+            cell.LikeControl.likeCounter = Float(photoObject.likes?.likesCount ?? 0)
             })
 
         return cell

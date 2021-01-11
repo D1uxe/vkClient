@@ -6,15 +6,16 @@
 //
 
 import Foundation
+import RealmSwift
 
-class Friend: Codable {
+class Friend: Object, Codable {
 
-    var id: Int = 0
-    var firstName: String = ""
-    var lastName: String = ""
-    var avatarURL: String = ""
-    var city: City?
-    var country: Country?
+    @objc dynamic var id: Int = 0
+    @objc dynamic var firstName: String = ""
+    @objc dynamic var lastName: String = ""
+    @objc dynamic var avatarURL: String = ""
+    @objc dynamic var city: City?
+    @objc dynamic var country: Country?
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -27,12 +28,12 @@ class Friend: Codable {
 
 }
 
-class City: Codable {
-    var title: String = ""
+class City: Object, Codable {
+    @objc dynamic var title: String = ""
 }
 
-class Country: Codable {
-    var title: String = ""
+class Country: Object, Codable {
+    @objc dynamic var title: String = ""
 }
 
 
