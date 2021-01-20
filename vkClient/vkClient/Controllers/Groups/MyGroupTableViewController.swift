@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class MyGroupTableViewController: UITableViewController {
 
@@ -24,7 +25,8 @@ class MyGroupTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        updateGroups()
+        self.loadData()
+        self.updateGroups()
     }
 
 
@@ -32,10 +34,17 @@ class MyGroupTableViewController: UITableViewController {
 
     fileprivate func updateGroups() {
         QueryGroups.get(completion: { [weak self] groups in
-            self?.groups = groups
+            //self?.groups = groups
+            self?.loadData()
             self?.tableView.reloadData()
         })
     }
+
+    fileprivate func loadData() {
+
+        self.groups = RealmService.loadData(of: Group.self)
+    }
+    
     
     // MARK: - Public Methods
     
@@ -60,24 +69,7 @@ class MyGroupTableViewController: UITableViewController {
                 })
             }
         }
-        /*
-        // проверим что переход произошел именно по клику из таблицы "все группы"
-        if unwindSegue.identifier == "addGroup" {
-            // запоминаем контроллер, который пришел
-            guard let sourceController = unwindSegue.source as? AllGroupTableViewController else { return }
-            // получаем индекс выделенной ячейки
-            if let indexPath = sourceController.tableView.indexPathForSelectedRow {
-                // Получаем группу из переменной groups источника по индексу
-                let selectedGroup = sourceController.groups[indexPath.row]
-                // если такой группы нет в списке
-                if !groups.contains(where: { $0.name == selectedGroup.name }) {
-                    // Добавляем группу в список (в переменную groups этого класса)
-                    groups.append(selectedGroup)
-                    // Обновляем таблицу
-                    tableView.reloadData()
-                }
-            }
-        }*/
+
     }
     
     

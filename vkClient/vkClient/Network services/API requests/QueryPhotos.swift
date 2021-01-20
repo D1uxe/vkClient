@@ -53,6 +53,7 @@ class QueryPhotos {
             do {
                 let photos = try JSONDecoder().decode(Response<Photo>.self, from: data).response.items
                 DispatchQueue.main.async {
+                    RealmService.saveData(for: ownerId, objects: photos)
                     completion(photos)
                 }
             } catch  {

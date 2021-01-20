@@ -21,20 +21,31 @@ class FriendTableViewController: UITableViewController {
     private var originFriendDictionary: [String: [Friend]] = [:]
     private let imageService = ImageService()
 
+
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.loadData()
         QueryFriends.get(completion: { [weak self] friends in
 
+            self?.loadData()
             // проинициализируем словарь где ключ - первая буква слова
-            self?.friendDictionary = Dictionary(grouping: friends, by: { String($0.firstName.prefix(1)) })
+            self?.friendDictionary = Dictionary(grouping: self!.friends, by: { String($0.firstName.prefix(1)) })
             self?.originFriendDictionary = self?.friendDictionary ?? [:]
             self?.tableView.reloadData()
         })
     }
-    
+
+
+    //MARK: - Private Methods
+
+    fileprivate func loadData() {
+
+        self.friends = RealmService.loadData(of: Friend.self)
+    }
+
 
     // MARK: - Public Methods
 

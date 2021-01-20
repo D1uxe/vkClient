@@ -12,7 +12,7 @@ class Photo: Object, Codable {
 
     @objc dynamic var id: Int = 0
     @objc dynamic var ownerId: Int = 0
-    var sizes: [Size] = []
+    var sizes = List<Size>()//: [Size] = []
     @objc dynamic var likes: Like?
 
     enum CodingKeys: String, CodingKey {

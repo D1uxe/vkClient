@@ -16,9 +16,9 @@ class FriendCollectionViewController: UICollectionViewController {
 
     //MARK: - Public Properties
     
-   // var friendPhotoo: [String] = [] // сюда данные приходят из метода prepare(for segue:) класса FriendTableVewController
-    var friendPhoto = [Photo]()
+    var friendPhotos = [Photo]() // сюда данные приходят из метода prepare(for segue:) класса FriendTableVewController
     var friendId: Int?
+
     
     //MARK: - Lifecycle
 
@@ -27,8 +27,10 @@ class FriendCollectionViewController: UICollectionViewController {
 
         collectionFlowLayoutSettings()
 
+        self.loadData()
         QueryPhotos.getAll(for: friendId, completion: { [weak self] photos in
-            self?.friendPhoto = photos
+            //self?.friendPhotos = photos
+            self?.loadData()
             self?.collectionView.reloadData()
         })
     }
@@ -50,7 +52,10 @@ class FriendCollectionViewController: UICollectionViewController {
         layout.itemSize = CGSize(width: itemSize, height: itemSize)
     }
     
-    
+    fileprivate func loadData() {
+        self.friendPhotos = RealmService.loadData(for: friendId, of: Photo.self)
+        
+    }
     
     /*
      // MARK: - Navigation
@@ -73,14 +78,14 @@ class FriendCollectionViewController: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 
-        return friendPhoto.count
+        return friendPhotos.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FriendCollectionCell", for: indexPath) as! FriendCollectionViewCell
 
-        let photoObject = friendPhoto[indexPath.item]
+        let photoObject = friendPhotos[indexPath.item]
 
         imageService.getPhoto(byURL: photoObject.sizes[0].url, completion: { photo in
             cell.friendPhotoImageView.image = photo

@@ -74,6 +74,7 @@ class QueryGroups {
             do {
                 let groups = try JSONDecoder().decode(Response<Group>.self, from: data).response.items
                 DispatchQueue.main.async {
+                    RealmService.saveData(objects: groups)
                     completion(groups)
                 }
             } catch {
