@@ -15,12 +15,15 @@ enum GroupFields: String {
     case description
     case wiki_page
     case members_count
+    case is_member
+    case member_status
     case counters
     case start_date
     case finish_date
     case can_post
     case can_see_all_posts
     case activity
+    case is_closed
     case status
     case contacts
     case links
@@ -74,7 +77,7 @@ class QueryGroups {
             do {
                 let groups = try JSONDecoder().decode(Response<Group>.self, from: data).response.items
                 DispatchQueue.main.async {
-                    RealmService.saveData(objects: groups)
+                    //RealmService.saveData(objects: groups)
                     completion(groups)
                 }
             } catch {
@@ -159,7 +162,7 @@ class QueryGroups {
             do {
                 let json = try JSONSerialization.jsonObject(with: data, options: [])
 
-                let responseJson = json as! [String: Int]
+                guard let responseJson = json as? [String: Int] else { return }
                 let response = responseJson["response"]!
 
                 DispatchQueue.main.async {

@@ -82,7 +82,7 @@ class QueryFriends {
             do {
                 let friends = try JSONDecoder().decode(Response<Friend>.self, from: data).response.items
                 DispatchQueue.main.async {
-                    RealmService.saveData(objects: friends)
+                    //RealmService.saveData(objects: friends)
                     completion(friends)
                 }
             } catch {

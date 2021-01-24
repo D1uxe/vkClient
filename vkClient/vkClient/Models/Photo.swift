@@ -21,6 +21,9 @@ class Photo: Object, Codable {
         case sizes
         case likes
     }
+    override class func primaryKey() -> String? {
+        return "id"
+    }
 
 }
 

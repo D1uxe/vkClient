@@ -6,14 +6,15 @@
 //
 
 import UIKit
+import RealmSwift
 
 class FriendTableViewController: UITableViewController {
     
 
     // MARK: - Private Properties
 
-    //private var friends: Friends = Friends()
-    private var friends: [Friend] = []
+    private var token: NotificationToken?
+    private var friends: Results<Friend>?//[Friend] = []
     private var friendDictionary = [String: [Friend]]()
     private var sectionTitles: [String] {
         friendDictionary.keys.sorted()
@@ -27,23 +28,34 @@ class FriendTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.loadData()
-        QueryFriends.get(completion: { [weak self] friends in
+        self.configureRealmNotification()
+        RealmService.updateFriendsInRelm()
 
-            self?.loadData()
-            // проинициализируем словарь где ключ - первая буква слова
-            self?.friendDictionary = Dictionary(grouping: self!.friends, by: { String($0.firstName.prefix(1)) })
-            self?.originFriendDictionary = self?.friendDictionary ?? [:]
-            self?.tableView.reloadData()
-        })
+
+
     }
 
 
     //MARK: - Private Methods
 
-    fileprivate func loadData() {
+    fileprivate func configureRealmNotification() {
 
-        self.friends = RealmService.loadData(of: Friend.self)
+        guard let realm = try? Realm() else { return }
+
+        self.friends = realm.objects(Friend.self)
+
+        self.token = friends?.observe({ [weak self] (changes: RealmCollectionChange) in
+
+            switch changes {
+                case .initial,.update:
+                    self?.friendDictionary = Dictionary(grouping: (self?.friends)!, by: { String($0.firstName.prefix(1)) })
+                    self?.originFriendDictionary = self?.friendDictionary ?? [:]
+                    self?.tableView.reloadData()
+                case .error(let error):
+                    fatalError("Realm notofocation error \(error)")
+            }
+        })
+
     }
 
 
@@ -96,12 +108,6 @@ class FriendTableViewController: UITableViewController {
 
                 cell.configure(friendName: fullName, friendAvatar: avatar)
             })
-
-
-            /*
-            cell.friendAvatarImageView.image = UIImage(named: friend[indexPath.row].avatar)
-            cell.friendNameLabel.text = friend[indexPath.row].name
-             */
         }
 
         return cell

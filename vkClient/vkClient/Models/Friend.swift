@@ -26,6 +26,10 @@ class Friend: Object, Codable {
         case country
     }
 
+    override class func primaryKey() -> String? {
+        return "id"
+    }
+
 }
 
 class City: Object, Codable {

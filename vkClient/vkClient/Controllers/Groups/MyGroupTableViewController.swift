@@ -13,11 +13,11 @@ class MyGroupTableViewController: UITableViewController {
     //MARK: - Private Properties
 
     private let imageService = ImageService()
-
+    private var token: NotificationToken?
 
     // MARK: - Public Properties
 
-    var groups: [Group] = []
+    var groups: Results<Group>?//[Group] = []
 
     
     // MARK: - Lifecycle
@@ -25,26 +25,43 @@ class MyGroupTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.loadData()
-        self.updateGroups()
+        self.configureRealmNotification()
+        RealmService.updateGroupsInRealm()
     }
 
 
     //MARK: - Private Methods
 
-    fileprivate func updateGroups() {
-        QueryGroups.get(completion: { [weak self] groups in
-            //self?.groups = groups
-            self?.loadData()
-            self?.tableView.reloadData()
+    fileprivate func configureRealmNotification() {
+        
+        guard let realm = try? Realm() else { return }
+        
+        self.groups = realm.objects(Group.self)
+        
+        token = self.groups?.observe({ [weak self] (changes: RealmCollectionChange) in
+            
+            switch changes {
+                case .initial(_):
+                    self?.tableView.reloadData()
+                case .update(_, deletions: let deletions,
+                             insertions: let insertions,
+                             modifications: let modifications):
+                    self?.tableView.beginUpdates()
+                    
+                    self?.tableView.deleteRows(at: deletions.map({ IndexPath(row: $0, section: 0)}), with: .automatic)
+                    self?.tableView.insertRows(at: insertions.map({ IndexPath(row: $0, section: 0)}), with: .automatic)
+                    self?.tableView.reloadRows(at: modifications.map({ IndexPath(row: $0, section: 0)}), with: .automatic)
+                    
+                    self?.tableView.endUpdates()
+                    
+                case .error(let error):
+                    fatalError("Realm notofocation error \(error)")
+            }
         })
+        
+        
     }
-
-    fileprivate func loadData() {
-
-        self.groups = RealmService.loadData(of: Group.self)
-    }
-    
+     
     
     // MARK: - Public Methods
     
@@ -61,12 +78,19 @@ class MyGroupTableViewController: UITableViewController {
                 let selectedGroup = sourceController.groups[indexPath.row]
                 // отправим запрос на вступление в группу
                 QueryGroups.join(groupId: selectedGroup.id, completion: { [weak self] result in
-                    guard result == 1 else {
-                        self?.showAlert(title: "Сообщение", message: "Запрос на вступление в группу отклонен")
-                        return
+                    if result == 1 {
+                        switch selectedGroup.isClosed {
+                            case 0: // открытая группа
+                                RealmService.updateGroupsInRealm()
+                            case 1: // закрытая группа
+                                RealmService.updateGroupsInRealm()
+                                self?.showAlert(title: "Сообщение", message: "Заявка на вступление в группу отправлена")
+                            default:
+                               break
+                        }
                     }
-                    self?.updateGroups()
                 })
+
             }
         }
 
@@ -83,13 +107,13 @@ class MyGroupTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
-        return groups.count
+        return groups?.count ?? 0
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MyGroupTableCell", for: indexPath) as! MyGroupTableViewCell
 
-        let group = groups[indexPath.row]
+        guard let group = groups?[indexPath.row] else { return cell }
         imageService.getPhoto(byURL: group.avatarURL, completion: {  avatar in
             cell.configure(groupName: group.name, groupAvatar: avatar)
         })
@@ -101,16 +125,15 @@ class MyGroupTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
 
         if editingStyle == .delete {
-            let selectedGroup = groups[indexPath.row]
-            QueryGroups.leave(groupId: selectedGroup.id, completion: { [weak self] result in
-                guard result == 1 else {
-                    self?.showAlert(title: "Сообщение", message: "Ошибка запроса")
-                    return
-                }
-            })
-            groups.remove(at: indexPath.row)
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            if let selectedGroup = groups?[indexPath.row] {
+                QueryGroups.leave(groupId: selectedGroup.id, completion: { [weak self] result in
+                    if result == 1  {
+                        RealmService.updateGroupsInRealm()
+                    } else {
+                        self?.showAlert(title: "Сообщение", message: "Ошибка запроса")
+                    }
+                })
+            }
         }
     }
 

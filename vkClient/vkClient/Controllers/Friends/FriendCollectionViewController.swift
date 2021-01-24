@@ -6,18 +6,19 @@
 //
 
 import UIKit
+import RealmSwift
 
 class FriendCollectionViewController: UICollectionViewController {
 
     //MARK: - Private Properties
 
     private let imageService = ImageService()
-
+    private var token: NotificationToken?
 
     //MARK: - Public Properties
     
-    var friendPhotos = [Photo]() // сюда данные приходят из метода prepare(for segue:) класса FriendTableVewController
-    var friendId: Int?
+    var friendPhotos: Results<Photo>?//[Photo]()
+    var friendId: Int? // сюда данные приходят из метода prepare(for segue:) класса FriendTableVewController
 
     
     //MARK: - Lifecycle
@@ -27,12 +28,13 @@ class FriendCollectionViewController: UICollectionViewController {
 
         collectionFlowLayoutSettings()
 
-        self.loadData()
-        QueryPhotos.getAll(for: friendId, completion: { [weak self] photos in
-            //self?.friendPhotos = photos
-            self?.loadData()
-            self?.collectionView.reloadData()
-        })
+        self.configureRealmNotification()
+        RealmService.updatePhotosInRealm(for: friendId)
+//        QueryPhotos.getAll(for: friendId, completion: { [weak self] photos in
+//            //self?.friendPhotos = photos
+//            self?.loadData()
+//            self?.collectionView.reloadData()
+//        })
     }
 
 
@@ -52,9 +54,32 @@ class FriendCollectionViewController: UICollectionViewController {
         layout.itemSize = CGSize(width: itemSize, height: itemSize)
     }
     
-    fileprivate func loadData() {
-        self.friendPhotos = RealmService.loadData(for: friendId, of: Photo.self)
-        
+    fileprivate func configureRealmNotification() {
+
+        guard let realm = try? Realm() else { return }
+
+        friendPhotos = realm.objects(Photo.self).filter("ownerId == %@", friendId ?? -1)
+
+        token = friendPhotos?.observe({ [weak self] (changes:RealmCollectionChange) in
+            guard let collectionView = self?.collectionView else { return }
+            switch changes {
+
+                case .initial(_):
+                    collectionView.reloadData()
+
+                case .update(_, deletions: let deletions,
+                             insertions: let insertions,
+                             modifications: let modifications):
+                    collectionView.performBatchUpdates({
+                        collectionView.deleteItems(at: deletions.map({ IndexPath(item: $0, section: 0) } ))
+                        collectionView.insertItems(at: insertions.map({ IndexPath(item: $0, section: 0) } ))
+                        collectionView.reloadItems(at: modifications.map({ IndexPath(item: $0, section: 0) } ))
+                    }, completion: nil)
+                case .error(let error):
+                    fatalError("Realm notification error \(error)")
+            }
+        })
+
     }
     
     /*
@@ -78,14 +103,14 @@ class FriendCollectionViewController: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 
-        return friendPhotos.count
+        return friendPhotos?.count ?? 0
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FriendCollectionCell", for: indexPath) as! FriendCollectionViewCell
 
-        let photoObject = friendPhotos[indexPath.item]
+        guard let photoObject = friendPhotos?[indexPath.item] else { return cell }
 
         imageService.getPhoto(byURL: photoObject.sizes[0].url, completion: { photo in
             cell.friendPhotoImageView.image = photo
