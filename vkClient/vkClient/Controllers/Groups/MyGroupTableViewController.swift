@@ -7,6 +7,7 @@
 
 import UIKit
 import RealmSwift
+import FirebaseDatabase
 
 class MyGroupTableViewController: UITableViewController {
 
@@ -14,6 +15,7 @@ class MyGroupTableViewController: UITableViewController {
 
     private let imageService = ImageService()
     private var token: NotificationToken?
+
 
     // MARK: - Public Properties
 
@@ -39,27 +41,28 @@ class MyGroupTableViewController: UITableViewController {
         self.groups = realm.objects(Group.self)
         
         token = self.groups?.observe({ [weak self] (changes: RealmCollectionChange) in
+
+            guard let tableView = self?.tableView else { return }
             
             switch changes {
                 case .initial(_):
-                    self?.tableView.reloadData()
+                    tableView.reloadData()
                 case .update(_, deletions: let deletions,
                              insertions: let insertions,
                              modifications: let modifications):
-                    self?.tableView.beginUpdates()
+                    tableView.beginUpdates()
                     
-                    self?.tableView.deleteRows(at: deletions.map({ IndexPath(row: $0, section: 0)}), with: .automatic)
-                    self?.tableView.insertRows(at: insertions.map({ IndexPath(row: $0, section: 0)}), with: .automatic)
-                    self?.tableView.reloadRows(at: modifications.map({ IndexPath(row: $0, section: 0)}), with: .automatic)
+                    tableView.deleteRows(at: deletions.map({ IndexPath(row: $0, section: 0)}), with: .automatic)
+                    tableView.insertRows(at: insertions.map({ IndexPath(row: $0, section: 0)}), with: .automatic)
+                    tableView.reloadRows(at: modifications.map({ IndexPath(row: $0, section: 0)}), with: .automatic)
                     
-                    self?.tableView.endUpdates()
+                    tableView.endUpdates()
                     
                 case .error(let error):
-                    fatalError("Realm notofocation error \(error)")
+                    fatalError("Realm notifocation error \(error)")
             }
         })
-        
-        
+
     }
      
     
@@ -79,15 +82,13 @@ class MyGroupTableViewController: UITableViewController {
                 // отправим запрос на вступление в группу
                 QueryGroups.join(groupId: selectedGroup.id, completion: { [weak self] result in
                     if result == 1 {
-                        switch selectedGroup.isClosed {
-                            case 0: // открытая группа
-                                RealmService.updateGroupsInRealm()
-                            case 1: // закрытая группа
-                                RealmService.updateGroupsInRealm()
-                                self?.showAlert(title: "Сообщение", message: "Заявка на вступление в группу отправлена")
-                            default:
-                               break
+                        if selectedGroup.isClosed == 1 {
+                            self?.showAlert(title: "Сообщение", message: "Заявка на вступление в группу отправлена")
                         }
+                        RealmService.updateGroupsInRealm()
+
+                        //FireBase
+                        Database.database().reference(withPath: "authorized_users").child(String(Session.shared.userId!)).child(String(selectedGroup.id)).setValue(["name" :selectedGroup.name])
                     }
                 })
 
@@ -121,7 +122,7 @@ class MyGroupTableViewController: UITableViewController {
         return cell
     }
 
-    // Override to support editing the table view.
+    
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
 
         if editingStyle == .delete {
@@ -135,6 +136,7 @@ class MyGroupTableViewController: UITableViewController {
                 })
             }
         }
+
     }
 
     

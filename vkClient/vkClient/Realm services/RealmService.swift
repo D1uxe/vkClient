@@ -12,13 +12,13 @@ class RealmService {
  
     class func updateFriendsInRelm() {
 
-        //Realm.Configuration.defaultConfiguration = Realm.Configuration( deleteRealmIfMigrationNeeded: true)
-
         QueryFriends.get(completion: { friends in
             // обработка исключений при работе с хранилищем
             do {
                 // получаем доступ к хранилищу
                 let realm = try Realm()
+
+                //print(realm.configuration.fileURL)
 
                 // получим старые объекты из базы
                 let oldValues = realm.objects(Friend.self)

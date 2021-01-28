@@ -14,12 +14,14 @@ class Group: Object, Codable {
     @objc dynamic var name: String = ""
     @objc dynamic var avatarURL: String = ""
     @objc dynamic var isClosed: Int = 0
+    @objc dynamic var isMember: Int = 0
     
     enum CodingKeys: String, CodingKey {
         case id
         case name
         case avatarURL = "photo_200"
         case isClosed = "is_closed"
+        case isMember = "is_member"
     }
 
     override class func primaryKey() -> String? {

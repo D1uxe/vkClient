@@ -33,4 +33,10 @@ class MyGroupTableViewCell: UITableViewCell {
         self.avatarGroupImageView.image = groupAvatar
     }
 
+    override func prepareForReuse() {
+        super.prepareForReuse()
+
+        self.nameGroupLabel.text = nil
+        self.avatarGroupImageView.image = nil
+    }
 }

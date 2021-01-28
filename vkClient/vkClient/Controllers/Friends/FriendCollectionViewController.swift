@@ -30,11 +30,6 @@ class FriendCollectionViewController: UICollectionViewController {
 
         self.configureRealmNotification()
         RealmService.updatePhotosInRealm(for: friendId)
-//        QueryPhotos.getAll(for: friendId, completion: { [weak self] photos in
-//            //self?.friendPhotos = photos
-//            self?.loadData()
-//            self?.collectionView.reloadData()
-//        })
     }
 
 
