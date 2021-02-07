@@ -18,7 +18,7 @@ class RealmService {
                 // получаем доступ к хранилищу
                 let realm = try Realm()
 
-                //print(realm.configuration.fileURL)
+                //print(realm.configuration.fileURL!)
 
                 // получим старые объекты из базы
                 let oldValues = realm.objects(Friend.self)
