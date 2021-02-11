@@ -14,8 +14,6 @@ enum GroupFields: String {
     case place
     case description
     case wiki_page
-    case members_count
-    case is_member
     case member_status
     case counters
     case start_date

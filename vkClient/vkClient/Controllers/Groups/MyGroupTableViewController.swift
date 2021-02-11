@@ -7,7 +7,6 @@
 
 import UIKit
 import RealmSwift
-import FirebaseDatabase
 
 class MyGroupTableViewController: UITableViewController {
 
@@ -87,8 +86,9 @@ class MyGroupTableViewController: UITableViewController {
                         }
                         RealmService.updateGroupsInRealm()
 
-                        //FireBase
+                        /* FireBase
                         Database.database().reference(withPath: "authorized_users").child(String(Session.shared.userId!)).child(String(selectedGroup.id)).setValue(["name" :selectedGroup.name])
+                         */
                     }
                 })
 
