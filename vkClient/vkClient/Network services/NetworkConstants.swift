@@ -10,7 +10,7 @@ import Foundation
 struct NetworkConstants {
 
     static let appId: String = "7705370"
-    static let scope: String = "262150"
+    static let scope: String = "270342" // friends, photos, wall, groups
     static let versionAPI: String = "5.126"
 
     static let scheme: String = "https"

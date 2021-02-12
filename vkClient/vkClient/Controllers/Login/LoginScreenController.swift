@@ -73,29 +73,34 @@ class LoginScreenController: UIViewController {
 
     @IBAction func vkAPIRequest() {
 
-        QueryFriends.get(fields: [.photo_100, .city, .country] ,completion: { friends in
-            print("++++++++ FRIENDS ++++++++")
-            print(friends)
-        })
+//        QueryFriends.get(fields: [.photo_100, .city, .country] ,completion: { friends in
+//            print("++++++++ FRIENDS ++++++++")
+//            print(friends)
+//        })
+//
+//        QueryGroups.get(completion: {groups in
+//            print("======== GROUPS ========")
+//            print(groups)
+//        })
+//
+//        QueryGroups.search(group: "Swift", completion: { searchedGroups in
+//            print("-------- SEARCHED GROUPS --------")
+//            print(searchedGroups)
+//    })
+//
+//        QueryGroups.leave(groupId: 32295218, completion: { result in
+//            print("****** GROUP 32295218 LEAVE")
+//            print(result)
+//        })
+//
+//        QueryPhotos.getAll(for: Session.shared.userId ?? 0, completion: { photos in
+//            print("******** PHOTOS ********")
+//            print(photos)
+//        })
 
-        QueryGroups.get(completion: {groups in
-            print("======== GROUPS ========")
-            print(groups)
-        })
-
-        QueryGroups.search(group: "Swift", completion: { searchedGroups in
-            print("-------- SEARCHED GROUPS --------")
-            print(searchedGroups)
-    })
-
-        QueryGroups.leave(groupId: 32295218, completion: { result in
-            print("****** GROUP 32295218 LEAVE")
-            print(result)
-        })
-
-        QueryPhotos.getAll(for: Session.shared.userId ?? 0, completion: { photos in
-            print("******** PHOTOS ********")
-            print(photos)
+        QueryNews.get(completion: { news in
+            print("‼️‼️‼️ NEWS ‼️‼️‼️")
+            print(news)
         })
 
     }

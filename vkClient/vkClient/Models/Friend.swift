@@ -41,7 +41,7 @@ class Country: Object, Codable {
 }
 
 
-/* спосбо 2. Ручной декодинг
+/* способ 2. Ручной декодинг
 class FFriend: Decodable {
 
     var id: Int = 0
