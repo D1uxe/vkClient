@@ -42,9 +42,26 @@ class RealmService {
         })
 
     }
-
+// Получение, парсинг и обновление происходит через OperationQueue
     class func updateGroupsInRealm() {
 
+        let queue = OperationQueue()
+
+        guard let url = QueryGroups.getUrlForGroupRequest() else { return }
+
+        let getDataOperation = GetDataOperation(url: url)
+        queue.addOperation(getDataOperation)
+
+        let parseDataOperation = ParseDataOperation<Group>()
+        parseDataOperation.addDependency(getDataOperation)
+        queue.addOperation(parseDataOperation)
+
+        let savingDataOperation = SavingDataOperation<Group>()
+        savingDataOperation.addDependency(parseDataOperation)
+        queue.addOperation(savingDataOperation)
+
+
+        /* deprecated
         QueryGroups.get(completion: { groups in
             do {
                 let realm = try Realm()
@@ -57,8 +74,11 @@ class RealmService {
                 print(error)
             }
         })
-
+         */
     }
+
+
+    
 
 
     class func updatePhotosInRealm(for userId: Int?) {

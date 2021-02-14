@@ -86,6 +86,29 @@ class QueryGroups {
     }
 
 
+    /// Возвращает сформированную ссылку для запроса сообществ указанного пользователя
+    /// - Parameter fields: список дополнительных полей, которые необходимо вернуть.
+    /// - Returns: ссылка для отправки запроса.
+    class func getUrlForGroupRequest(fields: [GroupFields] = [GroupFields.description]) -> URL? {
+
+        let field = fields.lazy.map({ $0.rawValue }).joined(separator: ",")
+
+        var urlConstructor = URLComponents()
+
+        urlConstructor.scheme = NetworkConstants.scheme
+        urlConstructor.host = NetworkConstants.host
+        urlConstructor.path = "/method/groups.get"
+        urlConstructor.queryItems = [
+            URLQueryItem(name: "extended", value: "1"),
+            URLQueryItem(name: "fields", value: field),
+            URLQueryItem(name: "access_token", value: Session.shared.token),
+            URLQueryItem(name: "v", value: NetworkConstants.versionAPI),
+        ]
+
+        return urlConstructor.url
+    }
+
+
     /// Осуществляет поиск сообществ по заданной подстроке
     /// - Parameters:
     ///   - name: имя искомого сообщества
@@ -212,9 +235,6 @@ class QueryGroups {
         }).resume()
 
     }
-
-
-
 
 
 }

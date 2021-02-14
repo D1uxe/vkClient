@@ -58,7 +58,7 @@ class MyGroupTableViewController: UITableViewController {
                     tableView.endUpdates()
                     
                 case .error(let error):
-                    fatalError("Realm notifocation error \(error)")
+                    fatalError("Realm notification error \(error)")
             }
         })
 
@@ -91,7 +91,6 @@ class MyGroupTableViewController: UITableViewController {
                          */
                     }
                 })
-
             }
         }
 

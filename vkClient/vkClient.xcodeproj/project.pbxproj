@@ -25,6 +25,10 @@
 		5247374D25585FC90036A773 /* AvtarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5247374C25585FC90036A773 /* AvtarView.swift */; };
 		5247375025586A5A0036A773 /* ShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5247374F25586A5A0036A773 /* ShadowView.swift */; };
 		52552246256ABEF100F13F2D /* FriendPhotoBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52552245256ABEF100F13F2D /* FriendPhotoBrowserViewController.swift */; };
+		525536FC25D98B9300A403B0 /* AsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525536FB25D98B9300A403B0 /* AsyncOperation.swift */; };
+		5255370025D9B43100A403B0 /* GetDataOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525536FF25D9B43100A403B0 /* GetDataOperation.swift */; };
+		5255370425D9B44B00A403B0 /* ParseDataOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5255370325D9B44B00A403B0 /* ParseDataOperation.swift */; };
+		5255370725D9B45D00A403B0 /* SaveDataOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5255370625D9B45D00A403B0 /* SaveDataOperation.swift */; };
 		525770FC25C0ABD90006D439 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 525770FB25C0ABD90006D439 /* GoogleService-Info.plist */; };
 		52648BCC2555952B00426E81 /* LikeControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52648BCB2555952B00426E81 /* LikeControl.swift */; };
 		5278EEC4254F54CD004F1EB4 /* FriendTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5278EEC3254F54CD004F1EB4 /* FriendTableViewController.swift */; };
@@ -74,6 +78,10 @@
 		5247374C25585FC90036A773 /* AvtarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvtarView.swift; sourceTree = "<group>"; };
 		5247374F25586A5A0036A773 /* ShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowView.swift; sourceTree = "<group>"; };
 		52552245256ABEF100F13F2D /* FriendPhotoBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendPhotoBrowserViewController.swift; sourceTree = "<group>"; };
+		525536FB25D98B9300A403B0 /* AsyncOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncOperation.swift; sourceTree = "<group>"; };
+		525536FF25D9B43100A403B0 /* GetDataOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetDataOperation.swift; sourceTree = "<group>"; };
+		5255370325D9B44B00A403B0 /* ParseDataOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseDataOperation.swift; sourceTree = "<group>"; };
+		5255370625D9B45D00A403B0 /* SaveDataOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveDataOperation.swift; sourceTree = "<group>"; };
 		525770FB25C0ABD90006D439 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		52648BCB2555952B00426E81 /* LikeControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeControl.swift; sourceTree = "<group>"; };
 		5278EEC3254F54CD004F1EB4 /* FriendTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendTableViewController.swift; sourceTree = "<group>"; };
@@ -197,6 +205,16 @@
 				520B857025D5AD2100C2EC56 /* QueryNews.swift */,
 			);
 			path = "API requests";
+			sourceTree = "<group>";
+		};
+		525536FE25D9B36C00A403B0 /* Operation */ = {
+			isa = PBXGroup;
+			children = (
+				525536FF25D9B43100A403B0 /* GetDataOperation.swift */,
+				5255370325D9B44B00A403B0 /* ParseDataOperation.swift */,
+				5255370625D9B45D00A403B0 /* SaveDataOperation.swift */,
+			);
+			path = Operation;
 			sourceTree = "<group>";
 		};
 		52648BCA2555950900426E81 /* Controls */ = {
@@ -329,6 +347,7 @@
 			isa = PBXGroup;
 			children = (
 				52B9F0F42563F30B00AF2B4B /* ScaledHeightImageView.swift */,
+				525536FB25D98B9300A403B0 /* AsyncOperation.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -336,6 +355,7 @@
 		52BF4E99258A623300FA8C69 /* Network services */ = {
 			isa = PBXGroup;
 			children = (
+				525536FE25D9B36C00A403B0 /* Operation */,
 				524475DF2594B70A001A8E18 /* API requests */,
 				52BF4E9A258A631700FA8C69 /* Session.swift */,
 				52452F8E258FB70400CC43EA /* NetworkService.swift */,
@@ -509,6 +529,7 @@
 				522BDCC82597AF2C005F86DD /* Response.swift in Sources */,
 				52AC45CC256D7D1200A778B1 /* CustomNavigationController.swift in Sources */,
 				52A61B3E2545BC5800DAEE04 /* LoginScreenController.swift in Sources */,
+				5255370025D9B43100A403B0 /* GetDataOperation.swift in Sources */,
 				52A61B3A2545BC5800DAEE04 /* AppDelegate.swift in Sources */,
 				52A395712551CB9F00042263 /* AllGroupTableViewCell.swift in Sources */,
 				520B857125D5AD2100C2EC56 /* QueryNews.swift in Sources */,
@@ -517,6 +538,7 @@
 				521673FE259A473B00EF0E2D /* Photo.swift in Sources */,
 				52648BCC2555952B00426E81 /* LikeControl.swift in Sources */,
 				52452F8F258FB70400CC43EA /* NetworkService.swift in Sources */,
+				5255370425D9B44B00A403B0 /* ParseDataOperation.swift in Sources */,
 				528DC7962566892D00DF2C98 /* LoadingViewController.swift in Sources */,
 				52FB725025AA19EF00DFBF11 /* Alert.swift in Sources */,
 				524475D325946173001A8E18 /* QueryFriends.swift in Sources */,
@@ -527,6 +549,7 @@
 				522BDCC02597A331005F86DD /* Friend.swift in Sources */,
 				52AC45D1256D7FC600A778B1 /* CustomInteractiveTransition.swift in Sources */,
 				528B623C2592526500E9E628 /* LoginWebViewController.swift in Sources */,
+				5255370725D9B45D00A403B0 /* SaveDataOperation.swift in Sources */,
 				527DDDAC25619CA900FF87B8 /* NewsTableViewController.swift in Sources */,
 				52444EDD25728A110081E8F2 /* AnimatedTabBarController.swift in Sources */,
 				52BF4E9B258A631700FA8C69 /* Session.swift in Sources */,
@@ -535,6 +558,7 @@
 				5247374D25585FC90036A773 /* AvtarView.swift in Sources */,
 				52E7B376256D823800DBE969 /* PopAnimator.swift in Sources */,
 				52A3956B2551CB5A00042263 /* AllGroupTableViewController.swift in Sources */,
+				525536FC25D98B9300A403B0 /* AsyncOperation.swift in Sources */,
 				524475DD25949A02001A8E18 /* QueryPhotos.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -612,7 +636,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -667,7 +691,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
