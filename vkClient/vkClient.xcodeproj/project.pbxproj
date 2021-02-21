@@ -53,6 +53,7 @@
 		52AC45D1256D7FC600A778B1 /* CustomInteractiveTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AC45D0256D7FC600A778B1 /* CustomInteractiveTransition.swift */; };
 		52B9F0F52563F30B00AF2B4B /* ScaledHeightImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B9F0F42563F30B00AF2B4B /* ScaledHeightImageView.swift */; };
 		52BF4E9B258A631700FA8C69 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BF4E9A258A631700FA8C69 /* Session.swift */; };
+		52D837D425E28EAF0024808D /* NetworkErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D837D325E28EAF0024808D /* NetworkErrors.swift */; };
 		52E0AD4F25990D6F006A4E0F /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E0AD4E25990D6F006A4E0F /* ImageService.swift */; };
 		52E7B371256D81F200DBE969 /* PushAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E7B370256D81F200DBE969 /* PushAnimator.swift */; };
 		52E7B376256D823800DBE969 /* PopAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E7B375256D823800DBE969 /* PopAnimator.swift */; };
@@ -108,6 +109,7 @@
 		52AC45D0256D7FC600A778B1 /* CustomInteractiveTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInteractiveTransition.swift; sourceTree = "<group>"; };
 		52B9F0F42563F30B00AF2B4B /* ScaledHeightImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaledHeightImageView.swift; sourceTree = "<group>"; };
 		52BF4E9A258A631700FA8C69 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		52D837D325E28EAF0024808D /* NetworkErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkErrors.swift; sourceTree = "<group>"; };
 		52E0AD4E25990D6F006A4E0F /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
 		52E7B370256D81F200DBE969 /* PushAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushAnimator.swift; sourceTree = "<group>"; };
 		52E7B375256D823800DBE969 /* PopAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopAnimator.swift; sourceTree = "<group>"; };
@@ -361,6 +363,7 @@
 				52452F8E258FB70400CC43EA /* NetworkService.swift */,
 				52452F91258FCB2600CC43EA /* NetworkConstants.swift */,
 				52E0AD4E25990D6F006A4E0F /* ImageService.swift */,
+				52D837D325E28EAF0024808D /* NetworkErrors.swift */,
 			);
 			path = "Network services";
 			sourceTree = "<group>";
@@ -557,6 +560,7 @@
 				527DDDAF25619CC500FF87B8 /* NewsTableViewCell.swift in Sources */,
 				5247374D25585FC90036A773 /* AvtarView.swift in Sources */,
 				52E7B376256D823800DBE969 /* PopAnimator.swift in Sources */,
+				52D837D425E28EAF0024808D /* NetworkErrors.swift in Sources */,
 				52A3956B2551CB5A00042263 /* AllGroupTableViewController.swift in Sources */,
 				525536FC25D98B9300A403B0 /* AsyncOperation.swift in Sources */,
 				524475DD25949A02001A8E18 /* QueryPhotos.swift in Sources */,

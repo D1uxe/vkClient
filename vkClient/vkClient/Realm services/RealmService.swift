@@ -7,9 +7,34 @@
 
 import Foundation
 import RealmSwift
+import PromiseKit
 
 class RealmService {
- 
+
+    class func updateFriendsInRealmByPromise() {
+
+        QueryFriends.get()
+            .get({ friends in
+                do {
+                    let realm = try Realm()
+
+                    let oldValues = realm.objects(Friend.self)
+
+                    realm.beginWrite()
+
+                    realm.delete(oldValues)
+                    realm.add(friends)
+
+                    try realm.commitWrite()
+
+                } catch { print(error) }
+            })
+            .catch({ error in
+                print(error)
+            })
+    }
+
+    
     class func updateFriendsInRelm() {
 
         QueryFriends.get(completion: { friends in
@@ -42,6 +67,8 @@ class RealmService {
         })
 
     }
+
+
 // Получение, парсинг и обновление происходит через OperationQueue
     class func updateGroupsInRealm() {
 
@@ -76,9 +103,6 @@ class RealmService {
         })
          */
     }
-
-
-    
 
 
     class func updatePhotosInRealm(for userId: Int?) {

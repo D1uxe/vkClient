@@ -29,10 +29,7 @@ class FriendTableViewController: UITableViewController {
         super.viewDidLoad()
 
         self.configureRealmNotification()
-        RealmService.updateFriendsInRelm()
-
-
-
+        RealmService.updateFriendsInRealmByPromise()
     }
 
 
@@ -52,7 +49,7 @@ class FriendTableViewController: UITableViewController {
                     self?.originFriendDictionary = self?.friendDictionary ?? [:]
                     self?.tableView.reloadData()
                 case .error(let error):
-                    fatalError("Realm notofocation error \(error)")
+                    fatalError("Realm notification error \(error)")
             }
         })
 

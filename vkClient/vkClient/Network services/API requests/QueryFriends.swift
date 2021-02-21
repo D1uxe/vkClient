@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import PromiseKit
 
 /// Дополнительные поля для возврата расширенной информации о друзьях пользователя
 enum FriendFields: String {
@@ -70,13 +71,13 @@ class QueryFriends {
             guard let data = data else { return }
 
             /*
-            do {
-                let json = try JSONSerialization.jsonObject(with: data, options: [])
-                print("++++++++++++ FRIENDS ++++++++++++")
-                print(json)
-            } catch {
-                print("Friends. Ошибка сериализации JSON \(error)")
-            }
+             do {
+             let json = try JSONSerialization.jsonObject(with: data, options: [])
+             print("++++++++++++ FRIENDS ++++++++++++")
+             print(json)
+             } catch {
+             print("Friends. Ошибка сериализации JSON \(error)")
+             }
              */
 
             do {
@@ -90,6 +91,56 @@ class QueryFriends {
             }
 
         }.resume()
+    }
+
+
+
+    /// Возвращает список идентификаторов друзей пользователя или расширенную информацию о друзьях пользователя (при использовании параметра fields).
+    /// - Parameter fields: список дополнительных полей, которые необходимо вернуть
+    /// - Returns: Обещание полученных друзей
+    class func get(fields: [FriendFields] = [FriendFields.photo_100]) -> Promise<[Friend]> {
+
+        let field = fields.lazy.map({ $0.rawValue }).joined(separator: ",")
+
+        var urlConstructor = URLComponents()
+        let session = URLSession.shared
+
+        urlConstructor.scheme = NetworkConstants.scheme
+        urlConstructor.host = NetworkConstants.host
+        urlConstructor.path = "/method/friends.get"
+        urlConstructor.queryItems = [
+            URLQueryItem(name: "user_id", value: ""),
+            URLQueryItem(name: "order", value: "hints"),
+            URLQueryItem(name: "fields", value: field),
+            URLQueryItem(name: "count", value: ""),
+            URLQueryItem(name: "offset", value: "0"),
+            URLQueryItem(name: "access_token", value: Session.shared.token),
+            URLQueryItem(name: "v", value: NetworkConstants.versionAPI),
+        ]
+
+        guard let url = urlConstructor.url else { return Promise(error: NetworkErrors.badUrl) }
+        return Promise(resolver: { resolver in
+
+            session.dataTask(with: url) { data, response, error in
+
+                if error != nil {
+                    resolver.reject(NetworkErrors.dataTaskError)
+                }
+
+                guard let data = data else {
+                    resolver.reject(NetworkErrors.noDataProvided)
+                    return
+                }
+
+                do {
+                    let friends = try JSONDecoder().decode(Response<Friend>.self, from: data).response.items
+                    resolver.fulfill(friends)
+                } catch {
+                    resolver.reject(NetworkErrors.decodeFailed)
+                }
+
+            }.resume()
+        })
     }
     
 }

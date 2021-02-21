@@ -7,5 +7,6 @@ target 'vkClient' do
 
   # Pods for vkClient
     pod 'RealmSwift'
+    pod 'PromiseKit'
   #  pod 'Firebase/Database'
 end
