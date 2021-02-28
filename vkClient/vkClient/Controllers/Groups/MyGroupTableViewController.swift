@@ -12,13 +12,13 @@ class MyGroupTableViewController: UITableViewController {
 
     //MARK: - Private Properties
 
-    private let imageService = ImageService()
+    private lazy var imageService = ImageService(container: self.tableView)
     private var token: NotificationToken?
 
 
     // MARK: - Public Properties
 
-    var groups: Results<Group>?//[Group] = []
+    var groups: Results<Group>?
 
     
     // MARK: - Lifecycle
@@ -61,11 +61,10 @@ class MyGroupTableViewController: UITableViewController {
                     fatalError("Realm notification error \(error)")
             }
         })
-
     }
      
     
-    // MARK: - Public Methods
+    //MARK: - IBAction
     
     // Получим данные из контроллера AllGroupsTableViewController
     @IBAction func addGroupToMyGroups(unwindSegue: UIStoryboardSegue) {
@@ -93,7 +92,6 @@ class MyGroupTableViewController: UITableViewController {
                 })
             }
         }
-
     }
     
     
@@ -111,12 +109,14 @@ class MyGroupTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
         let cell = tableView.dequeueReusableCell(withIdentifier: "MyGroupTableCell", for: indexPath) as! MyGroupTableViewCell
 
         guard let group = groups?[indexPath.row] else { return cell }
-        imageService.getPhoto(byURL: group.avatarURL, completion: {  avatar in
-            cell.configure(groupName: group.name, groupAvatar: avatar)
-        })
+        
+        let avatar = imageService.getPhoto(atIndexpath: indexPath, byUrl: group.avatarURL)
+        
+        cell.configure(groupName: group.name, groupAvatar: avatar)
 
         return cell
     }
@@ -135,41 +135,6 @@ class MyGroupTableViewController: UITableViewController {
                 })
             }
         }
-
     }
-
-    
-    /*
-     // Override to support conditional editing of the table view.
-     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-         // Return false if you do not want the specified item to be editable.
-         return true
-     }
-     */
-
-    /*
-     // Override to support rearranging the table view.
-     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-     }
-     */
-
-    /*
-     // Override to support conditional rearranging of the table view.
-     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-         // Return false if you do not want the item to be re-orderable.
-         return true
-     }
-     */
-
-    /*
-     // MARK: - Navigation
-
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-         // Get the new view controller using segue.destination.
-         // Pass the selected object to the new view controller.
-     }
-     */
     
 }

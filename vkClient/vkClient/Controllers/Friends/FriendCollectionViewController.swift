@@ -12,12 +12,12 @@ class FriendCollectionViewController: UICollectionViewController {
 
     //MARK: - Private Properties
 
-    private let imageService = ImageService()
+    private lazy var imageService = ImageService(container: self.collectionView)
     private var token: NotificationToken?
 
     //MARK: - Public Properties
     
-    var friendPhotos: Results<Photo>?//[Photo]()
+    var friendPhotos: Results<Photo>?
     var friendId: Int? // сюда данные приходят из метода prepare(for segue:) класса FriendTableVewController
 
     
@@ -107,10 +107,8 @@ class FriendCollectionViewController: UICollectionViewController {
 
         guard let photoObject = friendPhotos?[indexPath.item] else { return cell }
 
-        imageService.getPhoto(byURL: photoObject.sizes[0].url, completion: { photo in
-            cell.friendPhotoImageView.image = photo
-            cell.LikeControl.likeCounter = Float(photoObject.likes?.likesCount ?? 0)
-            })
+        cell.friendPhotoImageView.image = imageService.getPhoto(atIndexpath: indexPath, byUrl: photoObject.sizes[0].url)
+        cell.LikeControl.likeCounter = Float(photoObject.likes?.likesCount ?? 0)
 
         return cell
     }
@@ -123,14 +121,12 @@ class FriendCollectionViewController: UICollectionViewController {
 
         let friendPhotoBrowserVC = FriendPhotoBrowserViewController()
 
-//        friendPhotoBrowserVC.friendPhotos = friendPhotoo
+        friendPhotoBrowserVC.friendPhotos = Array(friendPhotos!)
         friendPhotoBrowserVC.selectedPhoto = indexPath.item
 
         friendPhotoBrowserVC.modalPresentationStyle = .automatic
         friendPhotoBrowserVC.modalTransitionStyle = .coverVertical
-       // self.navigationController?.pushViewController(friendPhotoBrowserVC, animated: true)
-        //TODO: Сделать просмотр фотографий друга.
-        // Закоментировал пояление контроллера, т.к. нужно заново получать все фотограйии по URL. Возможно, что когда доберемся до Realm, код контроллера придется еще раз переделать. Подожду уроков по Realm
+        self.navigationController?.pushViewController(friendPhotoBrowserVC, animated: true)
     }
 
 

@@ -11,7 +11,7 @@ class FriendPhotoBrowserViewController: UIViewController {
 
     //MARK: - Public Properties
 
-    var friendPhotos: [String] = []
+    var friendPhotos: [Photo] = []
     var selectedPhoto = 0
 
     var leftImageView: UIImageView!
@@ -24,10 +24,12 @@ class FriendPhotoBrowserViewController: UIViewController {
 
     //MARK: - Private Properties
 
-    lazy private var panGestureRecognizer: UIPanGestureRecognizer = {
+    private lazy var panGestureRecognizer: UIPanGestureRecognizer = {
         let recognizer = UIPanGestureRecognizer(target: self, action: #selector(onPan(_:)))
         return recognizer
     }()
+
+    private lazy var imageService = ImageService()
 
 
     //MARK: - Lifecycle
@@ -38,7 +40,6 @@ class FriendPhotoBrowserViewController: UIViewController {
         view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         view.addGestureRecognizer(panGestureRecognizer)
     }
-
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -74,9 +75,10 @@ class FriendPhotoBrowserViewController: UIViewController {
         self.middleImageView = UIImageView()
         self.rightImageView = UIImageView()
 
-        self.leftImageView.image = UIImage(named: friendPhotos[indexPhotoLeft])
-        self.middleImageView.image = UIImage(named: friendPhotos[indexPhotoMid])
-        self.rightImageView.image = UIImage(named: friendPhotos[indexPhotoRight])
+        //загрузка фото
+        self.leftImageView.image = imageService.getPhoto(atIndexpath: IndexPath(), byUrl: friendPhotos[indexPhotoLeft].sizes.last!.url)
+        self.middleImageView.image = imageService.getPhoto(atIndexpath: IndexPath(), byUrl: friendPhotos[indexPhotoMid].sizes.last!.url)
+        self.rightImageView.image = imageService.getPhoto(atIndexpath: IndexPath(), byUrl: friendPhotos[indexPhotoRight].sizes.last!.url)
 
         self.leftImageView.contentMode = .scaleAspectFit
         self.middleImageView.contentMode = .scaleAspectFit
@@ -97,7 +99,6 @@ class FriendPhotoBrowserViewController: UIViewController {
         self.setupimageConstarints()
 
     }
-
 
     private func setupimageConstarints() {
 
@@ -123,7 +124,6 @@ class FriendPhotoBrowserViewController: UIViewController {
             rightImageView.widthAnchor.constraint(equalTo: middleImageView.widthAnchor),
         ])
     }
-
 
     private func startAnimate() {
         setupImage()

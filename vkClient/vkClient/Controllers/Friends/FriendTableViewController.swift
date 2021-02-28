@@ -20,7 +20,7 @@ class FriendTableViewController: UITableViewController {
         friendDictionary.keys.sorted()
     }
     private var originFriendDictionary: [String: [Friend]] = [:]
-    private let imageService = ImageService()
+    private lazy var imageService = ImageService(container: self.tableView)
 
 
     // MARK: - Lifecycle
@@ -71,10 +71,7 @@ class FriendTableViewController: UITableViewController {
     }
 
     
-    
-    
-    
-    
+
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -99,12 +96,15 @@ class FriendTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FriendTableCell", for: indexPath) as! FriendTableViewCell
 
         let letter = sectionTitles[indexPath.section]
-        if let friend = friendDictionary[letter] {
-            imageService.getPhoto(byURL: friend[indexPath.row].avatarURL, completion: { avatar in
-                let fullName = friend[indexPath.row].firstName + " " + friend[indexPath.row].lastName
+
+        let friendsByFirstLetter = friendDictionary[letter]
+
+        if let friends = friendsByFirstLetter?[indexPath.row] {
+
+                let fullName = friends.firstName + " " + friends.lastName
+                let avatar = imageService.getPhoto(atIndexpath: indexPath, byUrl: friends.avatarURL)
 
                 cell.configure(friendName: fullName, friendAvatar: avatar)
-            })
         }
 
         return cell
@@ -204,6 +204,7 @@ class FriendTableViewController: UITableViewController {
      }
      */
 }
+
 
 // MARK: - Search Bar Delegate
 
