@@ -107,7 +107,7 @@ class FriendCollectionViewController: UICollectionViewController {
 
         guard let photoObject = friendPhotos?[indexPath.item] else { return cell }
 
-        cell.friendPhotoImageView.image = imageService.getPhoto(atIndexpath: indexPath, byUrl: photoObject.sizes[0].url)
+        cell.friendPhotoImageView.image = imageService.getPhoto(atIndexpath: indexPath, byUrl: photoObject.sizes.last!.url)
         cell.LikeControl.likeCounter = Float(photoObject.likes?.likesCount ?? 0)
 
         return cell

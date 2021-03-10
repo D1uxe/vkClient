@@ -36,8 +36,14 @@ class QueryNews {
 
 
     /// Возвращает данные, необходимые для показа списка новостей для текущего пользователя
-    /// - Parameter completion: замыкание для возврата результата запроса
-    class func get(completion: @escaping ([Post]) -> Void) {
+    /// - Parameters:
+    ///   - startTime: время в формате unixtime, начиная с которого следует получить новости для текущего пользователя.
+    ///   - startFrom: идентификатор, необходимый для получения следующей страницы результатов. Значение, необходимое для передачи в этом параметре, возвращается в поле ответа next_from.
+    ///   - completion: замыкание для возврата результата запроса
+    class func get(startTime: String = "", startFrom: String? = "", completion: @escaping ([Post], String?) -> Void) {
+
+        // vk api после того как прислал последнюю страницу новстей, поле next_from отсутсвует, соответственно загружать больше нечего выходим.
+        guard let startFrom = startFrom else { return }
 
         var urlConstructor = URLComponents()
         let session = URLSession.shared
@@ -47,17 +53,16 @@ class QueryNews {
         urlConstructor.path = "/method/newsfeed.get"
         urlConstructor.queryItems = [
             URLQueryItem(name: "filters", value: "post"),
-            URLQueryItem(name: "start_from", value: ""),
-            URLQueryItem(name: "count", value: "3"),
+            URLQueryItem(name: "start_time", value: startTime),
+            URLQueryItem(name: "start_from", value: startFrom),
+            URLQueryItem(name: "count", value: "10"),
             URLQueryItem(name: "v", value: NetworkConstants.versionAPI),
             URLQueryItem(name: "access_token", value: Session.shared.token)
         ]
 
         guard let url = urlConstructor.url else { return }
 
-        print(url)
         let sessionTask = session.dataTask(with: url, completionHandler: { data, response, error in
-
 
             guard let data = data else { return }
 
@@ -69,7 +74,7 @@ class QueryNews {
                 getPostAuthor(in: &news, from: newsResponse)
                 
                 DispatchQueue.main.async {
-                    completion(news)
+                    completion(news, newsResponse.nextFrom)
                 }
             } catch {
                 print(error)
@@ -79,6 +84,6 @@ class QueryNews {
         DispatchQueue.global().async {
             sessionTask.resume()
         }
-
     }
+
 }

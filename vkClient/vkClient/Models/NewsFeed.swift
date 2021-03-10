@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import CoreGraphics
 
 struct ResponseNews: Codable {
 
@@ -19,7 +19,7 @@ struct ItemsNews: Codable {
     let items: [Post]
     let profiles: [Friend]
     let groups: [Group]
-    let nextFrom: String
+    let nextFrom: String?
 
     enum CodingKeys: String, CodingKey {
 
@@ -57,6 +57,18 @@ struct Post: Codable {
             return unixTimeToString()
         }
     }
+    var hasImage: Bool {
+        if let url = atachedPhotosUrl?.first {
+            return !url.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        }
+        return false
+    }
+
+    var aspectRatio: [CGFloat]? {
+        let ratio = attachments?.compactMap{ $0.photo?.sizes.last?.ratio }
+        return ratio
+    }
+
     enum CodingKeys: String, CodingKey {
 
         case sourceId = "source_id"
@@ -73,7 +85,14 @@ struct Post: Codable {
     private func unixTimeToString() -> String {
 
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd MMMM HH:mm"
+
+      if Calendar.current.compare(Date(timeIntervalSince1970: self.unixTimeDate),
+                                  to: Date(),
+                                  toGranularity: .day) == .orderedSame {
+            dateFormatter.dateFormat = "Сегодня в HH:mm"
+        } else {
+            dateFormatter.dateFormat = "dd MMMM в HH:mm"
+        }
         dateFormatter.locale = Locale(identifier: "ru")
         let date = Date(timeIntervalSince1970: self.unixTimeDate)
         return dateFormatter.string(from: date)

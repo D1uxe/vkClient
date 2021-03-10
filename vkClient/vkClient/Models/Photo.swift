@@ -33,6 +33,10 @@ class Size: Object, Codable {
     @objc dynamic var width: Int = 0
     @objc dynamic var height: Int = 0
     @objc dynamic var type: String = ""
+
+    var ratio: CGFloat {
+        return CGFloat(height) / CGFloat(width)
+    }
 }
 
 class Like: Object, Codable {

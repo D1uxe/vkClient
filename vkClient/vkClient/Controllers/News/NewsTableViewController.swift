@@ -9,104 +9,188 @@ import UIKit
 
 class NewsTableViewController: UITableViewController {
 
-    
-    var news = [(authorName: "Брюс Hulk Бэннер", authorAvatar: "Hulk", newsPhoto: "Hulk_news", newsText: """
-                    Я расклеился. Не знал куда деться и вот пустил себе пулю в рот, но другой я тут же сплюнул её. Потом я двинулся дальше, стал помогать людям и был хорош... Пока вы не затащили меня в этот цирк уродцев. Хотите узнать мой секрет агент Романофф, как я остаюсь спокойным?
-                    """),
-                (authorName: "Тони Старк", authorAvatar: "IronMan", newsPhoto: "IronMan_news", newsText: """
-                                Скучали по мне? Я тоже по вам скучал. Я не говорю, что мы уже годы живем в атмосфере надежного мира благодаря мне. Я не говорю, что после плена, восстав из пепла, я подтвердил миф о фениксе, как никто прежде в истории человечества. Я не говорю, что дядя Сэм может расслабиться в шезлонге, попивая холодный чай, потому что на этой планете нет ни одного соперника, у которого хватило бы сил со мной потягаться. Но речь не обо мне. И не о вас. И даже не о нас всех. Речь идет о наследии. О том, что мы оставим будущим поколениям. И потому в течение следующего года, впервые с 1974-го, самые светлые умы разных государств и корпораций со всего мира объединят усилия и покажут нам свое видение того, как построить лучшее будущее. Речь идет не о нас. Поэтому то, что я говорю, если я вообще что-то говорю, это - с возвращением на "Старк Экспо".
-                                """)
-    ]
-    
-    
-    
+    // MARK: - Private Properties
+
+    private var news: [Post] = []
+    private lazy var imageService = ImageService(container: self.tableView)
+    private var isLoading = false
+    private var nextFrom: String?
+    private var expandedCells = Set<Int>()
+    private var isExpanded: Bool = false
+
+
     //MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setupRefreshControl()
+
+        QueryNews.get(completion: { (post, nextFrom) in
+            self.news = post
+            self.nextFrom = nextFrom
+            self.tableView.reloadData()
+        })
     }
 
     
-    
-    
-    
+    //MARK: - Private Methods
+
+    private func setupRefreshControl() {
+
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl?.attributedTitle = NSAttributedString(string: "Refreshing...")
+        self.refreshControl?.tintColor = #colorLiteral(red: 0.2887516618, green: 0.5174338222, blue: 0.7922994494, alpha: 1)
+        self.refreshControl?.addTarget(self, action: #selector(refreshNews), for: .valueChanged)
+    }
+
+    @objc private func refreshNews() {
+
+        // Определяем время самой свежей новости или берем текущее время
+        let mostFreshNewsDate = self.news.first?.unixTimeDate ?? Date().timeIntervalSince1970
+
+        isLoading = true
+        QueryNews.get(startTime: String(mostFreshNewsDate + 1), completion: { (post, _) in
+
+            self.refreshControl?.endRefreshing()
+
+            guard post.count > 0 else { return }
+
+            self.news = post + self.news
+
+            let indexSet = IndexSet(integersIn: 0..<post.count)
+            self.tableView.insertSections(indexSet, with: .automatic)
+            self.isLoading = false
+        })
+    }
+
+    private func getCellPrototype(news: Post, indexPath: IndexPath) -> UITableViewCell {
+
+        if indexPath.row == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "NewsHeaderTableViewCell", for: indexPath) as! NewsHeaderTableViewCell
+
+            let avatar = imageService.getPhoto(atIndexpath: indexPath, byUrl: news.postAuthorAvatarUrl)
+
+            isExpanded = expandedCells.contains(indexPath.section)
+
+            cell.configure(postAuthor: news.postAuthor,
+                           avatar: avatar,
+                           newsTime: news.postDateTime,
+                           newsText: news.text,
+                           section: indexPath.section,
+                           isExpanded: isExpanded)
+
+            cell.delegate = self
+
+            return cell
+        }
+        else if indexPath.row == 2 || !news.hasImage {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "NewsFooterTableViewCell", for: indexPath) as! NewsFooterTableViewCell
+
+            cell.configure(likeCount: news.likes.likesCount,
+                           likeState: news.likes.isLikedByUser,
+                           commentCount: news.comments.count,
+                           repostCount: news.reposts.count,
+                           viewsCount: news.views.count)
+
+            return cell
+        }
+        else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "NewsPhotoTableViewCell", for: indexPath) as! NewsPhotoTableViewCell
+
+            if let photo = imageService.getPhoto(atIndexpath: indexPath, byUrl: (news.atachedPhotosUrl?.first)!) {
+                cell.configure(newsPhoto: photo)
+            }
+            return cell
+        }
+
+    }
+
     
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
 
-        return 1
+        return news.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
-        return news.count
+        if news[section].hasImage {
+            return 3
+        } else {
+            return 2
+        }
     }
-
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "NewsTableCell", for: indexPath) as! NewsTableViewCell
 
-        let mynews = news[indexPath.row]
-        
-        cell.configure(friendName: mynews.authorName,
-                       avatar: mynews.authorAvatar,
-                       newsText: mynews.newsText,
-                       newsPhoto: mynews.newsPhoto)
+        return  getCellPrototype(news: news[indexPath.section], indexPath: indexPath)
 
-        return cell
     }
 
 
+    // MARK: - Table view delegate
+
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+
+        guard indexPath.row == 1,
+              news[indexPath.section].hasImage,
+              let ratio = self.news[indexPath.section].aspectRatio?.last else { return UITableView.automaticDimension }
+
+        // Вычисляем высоту
+        return  tableView.bounds.size.width * ratio
+    }
     
-    
-    
-    
-    
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+}
+
+
+    // MARK: - TableViewDataSourcePrefetching
+
+extension NewsTableViewController: UITableViewDataSourcePrefetching {
+
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+
+        // Выбираем максимальный номер секции, которую нужно будет отобразить в ближайшее время
+        guard let maxSection = indexPaths.map({ $0.section}).max() else { return }
+
+        // Проверяем,является ли эта секция одной из трех ближайших к концу
+        if maxSection > news.count - 3,
+           // Убеждаемся, что мы уже не в процессе загрузки данных
+           !isLoading {
+            // Начинаем загрузку данных
+            isLoading = true
+
+            QueryNews.get(startFrom: self.nextFrom, completion: { (post, nextFrom) in
+
+                // Прикрепляем новости к cуществующим новостям
+                let indexSet = IndexSet(integersIn: self.news.count ..< self.news.count + post.count)
+
+                self.nextFrom = nextFrom
+                self.news.append(contentsOf: post)
+
+                // Обновляем таблицу
+                self.tableView.insertSections(indexSet, with: .automatic)
+
+                // Выключаем статус isLoading
+                self.isLoading = false
+            })
+        }
     }
-    */
 
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+}
+
+
+    // MARK: - NewsHeaderCellDelegate
+
+extension NewsTableViewController: NewsHeaderCellDelegate {
+
+    func showMoreTapped(section: Int) {
+
+        if !self.expandedCells.contains(section) {
+            self.expandedCells.insert(section)
+        }
+        tableView.performBatchUpdates(nil)
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
