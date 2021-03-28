@@ -40,7 +40,7 @@ class NewsTableViewController: UITableViewController {
 
         self.refreshControl = UIRefreshControl()
         self.refreshControl?.attributedTitle = NSAttributedString(string: "Refreshing...")
-        self.refreshControl?.tintColor = #colorLiteral(red: 0.2887516618, green: 0.5174338222, blue: 0.7922994494, alpha: 1)
+        self.refreshControl?.tintColor = ColorFlyWeight.basicAppColor
         self.refreshControl?.addTarget(self, action: #selector(refreshNews), for: .valueChanged)
     }
 

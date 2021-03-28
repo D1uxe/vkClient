@@ -61,6 +61,9 @@
 		52E7B376256D823800DBE969 /* PopAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E7B375256D823800DBE969 /* PopAnimator.swift */; };
 		52F35AE025ACAFF5006E3246 /* RealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F35ADF25ACAFF5006E3246 /* RealmService.swift */; };
 		52FB725025AA19EF00DFBF11 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FB724F25AA19EF00DFBF11 /* Alert.swift */; };
+		52FB98AF26111C6100D275F9 /* GroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FB98AE26111C6100D275F9 /* GroupViewModel.swift */; };
+		52FB98B226111C7800D275F9 /* GroupViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FB98B126111C7800D275F9 /* GroupViewModelFactory.swift */; };
+		52FB98B7261134CA00D275F9 /* ColorFlyWeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FB98B6261134CA00D275F9 /* ColorFlyWeight.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -119,6 +122,9 @@
 		52E7B375256D823800DBE969 /* PopAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopAnimator.swift; sourceTree = "<group>"; };
 		52F35ADF25ACAFF5006E3246 /* RealmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmService.swift; sourceTree = "<group>"; };
 		52FB724F25AA19EF00DFBF11 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
+		52FB98AE26111C6100D275F9 /* GroupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupViewModel.swift; sourceTree = "<group>"; };
+		52FB98B126111C7800D275F9 /* GroupViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupViewModelFactory.swift; sourceTree = "<group>"; };
+		52FB98B6261134CA00D275F9 /* ColorFlyWeight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorFlyWeight.swift; sourceTree = "<group>"; };
 		AAC990C1AA67FF480A06099B /* Pods_vkClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_vkClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0818155FD5E43E36646629E /* Pods-vkClient.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vkClient.debug.xcconfig"; path = "Target Support Files/Pods-vkClient/Pods-vkClient.debug.xcconfig"; sourceTree = "<group>"; };
 		F93F172E77B94548E5FE14E1 /* Pods-vkClient.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vkClient.release.xcconfig"; path = "Target Support Files/Pods-vkClient/Pods-vkClient.release.xcconfig"; sourceTree = "<group>"; };
@@ -324,6 +330,8 @@
 				52A61B422545BC5900DAEE04 /* Assets.xcassets */,
 				52A61B472545BC5900DAEE04 /* Info.plist */,
 				525770FB25C0ABD90006D439 /* GoogleService-Info.plist */,
+				52FB98B52611349300D275F9 /* FlyWeight */,
+				52FB98AD26111B3E00D275F9 /* Factory */,
 				52B9F10025642B1C00AF2B4B /* Helpers */,
 				52FB725525AA271300DFBF11 /* Extensions */,
 				52F35ADE25ACAED7006E3246 /* Realm services */,
@@ -397,6 +405,23 @@
 				52FB724F25AA19EF00DFBF11 /* Alert.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		52FB98AD26111B3E00D275F9 /* Factory */ = {
+			isa = PBXGroup;
+			children = (
+				52FB98AE26111C6100D275F9 /* GroupViewModel.swift */,
+				52FB98B126111C7800D275F9 /* GroupViewModelFactory.swift */,
+			);
+			path = Factory;
+			sourceTree = "<group>";
+		};
+		52FB98B52611349300D275F9 /* FlyWeight */ = {
+			isa = PBXGroup;
+			children = (
+				52FB98B6261134CA00D275F9 /* ColorFlyWeight.swift */,
+			);
+			path = FlyWeight;
 			sourceTree = "<group>";
 		};
 		60B2577043321D5382871D6C /* Pods */ = {
@@ -529,6 +554,7 @@
 				520B857725D5BEB400C2EC56 /* NewsFeed.swift in Sources */,
 				52452F92258FCB2600CC43EA /* NetworkConstants.swift in Sources */,
 				52A395682551CB4800042263 /* MyGroupTableViewController.swift in Sources */,
+				52FB98B226111C7800D275F9 /* GroupViewModelFactory.swift in Sources */,
 				524475D9259484F2001A8E18 /* QueryGroups.swift in Sources */,
 				52B9F0F52563F30B00AF2B4B /* ScaledHeightImageView.swift in Sources */,
 				5278EECD254F5541004F1EB4 /* FriendCollectionViewCell.swift in Sources */,
@@ -536,6 +562,7 @@
 				52A3956E2551CB9100042263 /* MyGroupTableViewCell.swift in Sources */,
 				52F35AE025ACAFF5006E3246 /* RealmService.swift in Sources */,
 				522BDCC82597AF2C005F86DD /* Response.swift in Sources */,
+				52FB98B7261134CA00D275F9 /* ColorFlyWeight.swift in Sources */,
 				52AC45CC256D7D1200A778B1 /* CustomNavigationController.swift in Sources */,
 				52A61B3E2545BC5800DAEE04 /* LoginScreenController.swift in Sources */,
 				5255370025D9B43100A403B0 /* GetDataOperation.swift in Sources */,
@@ -555,6 +582,7 @@
 				524475D325946173001A8E18 /* QueryFriends.swift in Sources */,
 				5278EEC4254F54CD004F1EB4 /* FriendTableViewController.swift in Sources */,
 				52E7B371256D81F200DBE969 /* PushAnimator.swift in Sources */,
+				52FB98AF26111C6100D275F9 /* GroupViewModel.swift in Sources */,
 				5247375025586A5A0036A773 /* ShadowView.swift in Sources */,
 				522BDCC52597A424005F86DD /* Group.swift in Sources */,
 				522BDCC02597A331005F86DD /* Friend.swift in Sources */,

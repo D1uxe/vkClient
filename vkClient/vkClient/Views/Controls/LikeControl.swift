@@ -21,10 +21,10 @@ class LikeControl: UIControl {
         didSet {
             if isLike {
                 imageView.image = UIImage(systemName: "heart.fill")
-                imageView.tintColor = #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)
+                imageView.tintColor = ColorFlyWeight.pressedLikeColor
             } else {
                 imageView.image = UIImage(systemName: "heart")
-                imageView.tintColor = #colorLiteral(red: 0.2887516618, green: 0.5174338222, blue: 0.7922994494, alpha: 1)
+                imageView.tintColor = ColorFlyWeight.basicAppColor
             }
         }
     }
@@ -62,7 +62,7 @@ class LikeControl: UIControl {
         addSubview(imageView)
 
         imageView.image = UIImage(systemName: "heart")
-        imageView.tintColor = #colorLiteral(red: 0.2887516618, green: 0.5174338222, blue: 0.7922994494, alpha: 1)
+        imageView.tintColor = ColorFlyWeight.basicAppColor
         imageView.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([self.leadingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: -5),
@@ -79,7 +79,7 @@ class LikeControl: UIControl {
     private func setupLabel() {
         addSubview(counterLabel)
 
-        counterLabel.textColor = #colorLiteral(red: 0.2887516618, green: 0.5174338222, blue: 0.7922994494, alpha: 1)
+        counterLabel.textColor = ColorFlyWeight.basicAppColor
         counterLabel.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([counterLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 5),
@@ -127,7 +127,7 @@ class LikeControl: UIControl {
                           animations: {
                             self.counterLabel.text = str
                           })
-        counterLabel.textColor = isLike ? #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1) : #colorLiteral(red: 0.2536475658, green: 0.4901949167, blue: 0.8384085298, alpha: 1)
+        counterLabel.textColor = isLike ? ColorFlyWeight.pressedLikeColor : ColorFlyWeight.basicAppColor
     }
 
     private func animateImage() {
