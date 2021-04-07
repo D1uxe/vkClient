@@ -18,6 +18,8 @@ class NewsTableViewController: UITableViewController {
     private var expandedCells = Set<Int>()
     private var isExpanded: Bool = false
 
+    private let proxy = QueryNewsProxy(service: QueryNews())
+
 
     //MARK: - Lifecycle
     
@@ -26,7 +28,7 @@ class NewsTableViewController: UITableViewController {
 
         setupRefreshControl()
 
-        QueryNews.get(completion: { (post, nextFrom) in
+        proxy.get(completion: { (post, nextFrom) in
             self.news = post
             self.nextFrom = nextFrom
             self.tableView.reloadData()
@@ -50,7 +52,7 @@ class NewsTableViewController: UITableViewController {
         let mostFreshNewsDate = self.news.first?.unixTimeDate ?? Date().timeIntervalSince1970
 
         isLoading = true
-        QueryNews.get(startTime: String(mostFreshNewsDate + 1), completion: { (post, _) in
+        proxy.get(startTime: String(mostFreshNewsDate + 1), completion: { (post, _) in
 
             self.refreshControl?.endRefreshing()
 
@@ -161,7 +163,7 @@ extension NewsTableViewController: UITableViewDataSourcePrefetching {
             // Начинаем загрузку данных
             isLoading = true
 
-            QueryNews.get(startFrom: self.nextFrom, completion: { (post, nextFrom) in
+            proxy.get(startFrom: self.nextFrom, completion: { (post, nextFrom) in
 
                 // Прикрепляем новости к cуществующим новостям
                 let indexSet = IndexSet(integersIn: self.news.count ..< self.news.count + post.count)

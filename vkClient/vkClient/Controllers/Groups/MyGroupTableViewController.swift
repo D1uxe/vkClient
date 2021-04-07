@@ -16,7 +16,7 @@ class MyGroupTableViewController: UITableViewController {
     private var token: NotificationToken?
 
     private let factory = GroupViewModelFactory()
-    private var ViewModels: [GroupViewModel] = []
+    private var viewModels: [GroupViewModel] = []
 
     // MARK: - Public Properties
 
@@ -42,7 +42,7 @@ class MyGroupTableViewController: UITableViewController {
         
         self.groups = realm.objects(Group.self)
 
-        self.ViewModels = self.factory.constructViewModels(from: Array(self.groups!))
+        self.viewModels = self.factory.constructViewModels(from: Array(self.groups!))
 
         token = self.groups?.observe({ [weak self] (changes: RealmCollectionChange) in
 
@@ -51,14 +51,14 @@ class MyGroupTableViewController: UITableViewController {
             switch changes {
                 case .initial(_):
 
-                    self?.ViewModels = (self?.factory.constructViewModels(from: Array((self?.groups!)!)))!
+                    self?.viewModels = (self?.factory.constructViewModels(from: Array((self?.groups!)!)))!
 
                     tableView.reloadData()
                 case .update(_, deletions: let deletions,
                              insertions: let insertions,
                              modifications: let modifications):
 
-                    self?.ViewModels = (self?.factory.constructViewModels(from: Array((self?.groups!)!)))!
+                    self?.viewModels = (self?.factory.constructViewModels(from: Array((self?.groups!)!)))!
 
                     tableView.beginUpdates()
 
@@ -123,7 +123,7 @@ class MyGroupTableViewController: UITableViewController {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "MyGroupTableCell", for: indexPath) as! MyGroupTableViewCell
 
-        let vm = self.ViewModels[indexPath.row]
+        let vm = self.viewModels[indexPath.row]
 
         let avatar = imageService.getPhoto(atIndexpath: indexPath, byUrl: vm.groupAvatarURL)
         

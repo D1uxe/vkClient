@@ -11,13 +11,13 @@ import Foundation
 /// Класс запросов к vk API для работы с лентой новостей
 class QueryNews {
 
-    private init() {}
+   // private init() {}
 
     /// Метеод для получения автора новости и его аватарки
     /// - Parameters:
     ///   - news: Модель новости в которой заполняются свойства postAuthor и postAuthorAvatarUrl
     ///   - newsPublisher: Массивы групп и юзеров из которых получаем автора. Для каждой новости это либо группа либо юзер
-    private class func getPostAuthor(in news: inout [Post], from newsPublisher: ItemsNews) {
+    private func getPostAuthor(in news: inout [Post], from newsPublisher: ItemsNews) {
 
         for i in 0..<news.count {
             if news[i].sourceId < 0 { // если автор новости группа
@@ -40,7 +40,7 @@ class QueryNews {
     ///   - startTime: время в формате unixtime, начиная с которого следует получить новости для текущего пользователя.
     ///   - startFrom: идентификатор, необходимый для получения следующей страницы результатов. Значение, необходимое для передачи в этом параметре, возвращается в поле ответа next_from.
     ///   - completion: замыкание для возврата результата запроса
-    class func get(startTime: String = "", startFrom: String? = "", completion: @escaping ([Post], String?) -> Void) {
+     func get(startTime: String = "", startFrom: String? = "", completion: @escaping ([Post], String?) -> Void) {
 
         // vk api после того как прислал последнюю страницу новстей, поле next_from отсутсвует, соответственно загружать больше нечего выходим.
         guard let startFrom = startFrom else { return }
@@ -71,7 +71,7 @@ class QueryNews {
             do {
                 let newsResponse = try JSONDecoder().decode(ResponseNews.self, from: data).response
                 news = newsResponse.items
-                getPostAuthor(in: &news, from: newsResponse)
+                self.getPostAuthor(in: &news, from: newsResponse)
                 
                 DispatchQueue.main.async {
                     completion(news, newsResponse.nextFrom)
