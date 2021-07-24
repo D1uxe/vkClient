@@ -98,10 +98,10 @@ class LoginScreenController: UIViewController {
 //            print(photos)
 //        })
 
-        QueryNews.get(completion: { (news,_) in
-            print("‼️‼️‼️ NEWS ‼️‼️‼️")
-            print(news)
-        })
+//        QueryNews.get(completion: { (news,_) in
+//            print("‼️‼️‼️ NEWS ‼️‼️‼️")
+//            print(news)
+//        })
 
     }
 

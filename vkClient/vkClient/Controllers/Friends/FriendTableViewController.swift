@@ -114,7 +114,7 @@ class FriendTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         let header = UILabel()
-        header.layer.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.02)
+        header.layer.backgroundColor = ColorFlyWeight.tableViewColor.cgColor
         header.font = UIFont.boldSystemFont(ofSize: 17)
 
         header.text = "    " + String(sectionTitles[section].uppercased())

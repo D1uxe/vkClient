@@ -16,22 +16,21 @@ class MyGroupTableViewCell: UITableViewCell {
 
     
     // MARK: - Public Methods
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
 
     func configure(groupName: String?, groupAvatar: UIImage?) {
         self.nameGroupLabel.text = groupName
         self.avatarGroupImageView.image = groupAvatar
     }
+
+
+    func configure(with viewModel: GroupViewModel, groupAvatar: UIImage?) {
+
+        self.nameGroupLabel.text = viewModel.groupName
+        self.avatarGroupImageView.image = groupAvatar
+
+    }
+
+
 
     override func prepareForReuse() {
         super.prepareForReuse()

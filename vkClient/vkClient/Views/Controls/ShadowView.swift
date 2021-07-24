@@ -34,7 +34,7 @@ import UIKit
     
     private func setupLayout() {
         layer.cornerRadius = 35
-        layer.shadowColor = #colorLiteral(red: 0.8752961362, green: 0.7478128967, blue: 1, alpha: 1).cgColor
+        layer.shadowColor = ColorFlyWeight.shadowColor.cgColor
         layer.shadowRadius = 8
         layer.shadowOffset = .zero
         layer.shadowOpacity = 1.0

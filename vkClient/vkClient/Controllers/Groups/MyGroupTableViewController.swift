@@ -15,6 +15,8 @@ class MyGroupTableViewController: UITableViewController {
     private lazy var imageService = ImageService(container: self.tableView)
     private var token: NotificationToken?
 
+    private let factory = GroupViewModelFactory()
+    private var viewModels: [GroupViewModel] = []
 
     // MARK: - Public Properties
 
@@ -34,23 +36,32 @@ class MyGroupTableViewController: UITableViewController {
     //MARK: - Private Methods
 
     fileprivate func configureRealmNotification() {
-        
+
+
         guard let realm = try? Realm() else { return }
         
         self.groups = realm.objects(Group.self)
-        
+
+        self.viewModels = self.factory.constructViewModels(from: Array(self.groups!))
+
         token = self.groups?.observe({ [weak self] (changes: RealmCollectionChange) in
 
             guard let tableView = self?.tableView else { return }
             
             switch changes {
                 case .initial(_):
+
+                    self?.viewModels = (self?.factory.constructViewModels(from: Array((self?.groups!)!)))!
+
                     tableView.reloadData()
                 case .update(_, deletions: let deletions,
                              insertions: let insertions,
                              modifications: let modifications):
+
+                    self?.viewModels = (self?.factory.constructViewModels(from: Array((self?.groups!)!)))!
+
                     tableView.beginUpdates()
-                    
+
                     tableView.deleteRows(at: deletions.map({ IndexPath(row: $0, section: 0)}), with: .automatic)
                     tableView.insertRows(at: insertions.map({ IndexPath(row: $0, section: 0)}), with: .automatic)
                     tableView.reloadRows(at: modifications.map({ IndexPath(row: $0, section: 0)}), with: .automatic)
@@ -112,11 +123,11 @@ class MyGroupTableViewController: UITableViewController {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "MyGroupTableCell", for: indexPath) as! MyGroupTableViewCell
 
-        guard let group = groups?[indexPath.row] else { return cell }
+        let vm = self.viewModels[indexPath.row]
+
+        let avatar = imageService.getPhoto(atIndexpath: indexPath, byUrl: vm.groupAvatarURL)
         
-        let avatar = imageService.getPhoto(atIndexpath: indexPath, byUrl: group.avatarURL)
-        
-        cell.configure(groupName: group.name, groupAvatar: avatar)
+        cell.configure(with: vm, groupAvatar: avatar)
 
         return cell
     }
